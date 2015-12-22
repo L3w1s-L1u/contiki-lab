@@ -1,0 +1,964 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!-- saved from url=(0056)http://blog.csdn.net/xukai871105/article/details/9204101 -->
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <script type="text/javascript" async="" src="./Instant Contiki 安装笔记——SDCC和CC2530 - 物联网 IoT 经验分享小站 - 博客频道 - CSDN.NET_files/ga.js"></script><script id="allmobilize" charset="utf-8" src="./Instant Contiki 安装笔记——SDCC和CC2530 - 物联网 IoT 经验分享小站 - 博客频道 - CSDN.NET_files/allmobilize.min.js"></script><style type="text/css"></style>
+ <meta http-equiv="Cache-Control" content="no-siteapp"><link rel="alternate" media="handheld" href="http://blog.csdn.net/xukai871105/article/details/9204101#">
+
+    <title>Instant Contiki 安装笔记——SDCC和CC2530 - 物联网 IoT 经验分享小站
+        - 博客频道 - CSDN.NET</title>
+    
+    <meta name="description" content="1.instant contiki中安装SDCC具详细步骤。">
+    <script src="./Instant Contiki 安装笔记——SDCC和CC2530 - 物联网 IoT 经验分享小站 - 博客频道 - CSDN.NET_files/jquery.js" type="text/javascript"></script>
+    <script type="text/javascript" src="./Instant Contiki 安装笔记——SDCC和CC2530 - 物联网 IoT 经验分享小站 - 博客频道 - CSDN.NET_files/ad.js"></script>
+        <!--new top-->
+       
+        <link rel="stylesheet" href="http://static.csdn.net/public/common/toolbar/css/index.css">
+        <!--new top-->
+
+    <link rel="Stylesheet" type="text/css" href="./Instant Contiki 安装笔记——SDCC和CC2530 - 物联网 IoT 经验分享小站 - 博客频道 - CSDN.NET_files/style.css">
+    <link id="RSSLink" title="RSS" type="application/rss+xml" rel="alternate" href="http://blog.csdn.net/xukai871105/rss/list">
+    <link rel="shortcut icon" href="http://csdnimg.cn/public/favicon.ico">
+    <link type="text/css" rel="stylesheet" href="./Instant Contiki 安装笔记——SDCC和CC2530 - 物联网 IoT 经验分享小站 - 博客频道 - CSDN.NET_files/default.css">
+ 
+
+
+<script src="./Instant Contiki 安装笔记——SDCC和CC2530 - 物联网 IoT 经验分享小站 - 博客频道 - CSDN.NET_files/share.js"></script><script type="text/javascript" charset="utf-8" src="./Instant Contiki 安装笔记——SDCC和CC2530 - 物联网 IoT 经验分享小站 - 博客频道 - CSDN.NET_files/tracking.js"></script><script type="text/javascript" charset="utf-8" src="./Instant Contiki 安装笔记——SDCC和CC2530 - 物联网 IoT 经验分享小站 - 博客频道 - CSDN.NET_files/main.js"></script><link href="./Instant Contiki 安装笔记——SDCC和CC2530 - 物联网 IoT 经验分享小站 - 博客频道 - CSDN.NET_files/bdsstyle.css" rel="stylesheet" type="text/css"><link rel="stylesheet" type="text/css" href="./Instant Contiki 安装笔记——SDCC和CC2530 - 物联网 IoT 经验分享小站 - 博客频道 - CSDN.NET_files/style(1).css"><link type="text/css" rel="stylesheet" href="./Instant Contiki 安装笔记——SDCC和CC2530 - 物联网 IoT 经验分享小站 - 博客频道 - CSDN.NET_files/style(2).css"><script src="./Instant Contiki 安装笔记——SDCC和CC2530 - 物联网 IoT 经验分享小站 - 博客频道 - CSDN.NET_files/logger.js"></script><style id="style-1-cropbar-clipper">/* Copyright 2014 Evernote Corporation. All rights reserved. */
+.en-markup-crop-options {
+    top: 18px !important;
+    left: 50% !important;
+    margin-left: -100px !important;
+    width: 200px !important;
+    border: 2px rgba(255,255,255,.38) solid !important;
+    border-radius: 4px !important;
+}
+
+.en-markup-crop-options div div:first-of-type {
+    margin-left: 0px !important;
+}
+</style><link rel="stylesheet" href="http://bdimg.share.baidu.com/static/api/css/share_style0_16.css?v=89a7173d.css"></head>
+<body><iframe frameborder="0" style="display: none;"></iframe>
+    
+   
+      <!--new top-->
+    <script id="toolbar-tpl-scriptId" fixed="true" prod="blog" skin="black" src="./Instant Contiki 安装笔记——SDCC和CC2530 - 物联网 IoT 经验分享小站 - 博客频道 - CSDN.NET_files/html.js" type="text/javascript"></script><div class="csdn-toolbar csdn-toolbar-skin-black ">        <div class="container row center-block ">          <div class="col-md-3 pull-left logo clearfix"><a href="http://www.csdn.net/?ref=toolbar" title="CSDN首页" target="_blank" class="icon"></a><a title="频道首页" href="http://blog.csdn.net/?ref=toolbar_logo" target="_blank" class="img blog-icon"></a></div>          <div class="pull-right login-wrap unlogin">            <ul class="btns">              <li class="loginlink"><a href="https://passport.csdn.net/account/login?ref=toolbar" target="_top">登录&nbsp;</a>|<a target="_top" href="https://passport.csdn.net/account/register?ref=toolbar">&nbsp;注册</a></li>              <li class="search">                <div class="icon on-search-icon">                  <div class="wrap">                    <div class="curr-icon-wrap">                      <div class="curr-icon"></div>                    </div>                    <form action="http://so.csdn.net/search" method="get" target="_blank">                      <input type="hidden" value="toolbar" name="ref" accesskey="2">                      <div class="border">                        <input placeholder="搜索" type="text" value="" name="q" accesskey="2"><span class="icon-enter-sm"></span>                      </div>                    </form>                  </div>                </div>              </li>              <li class="favor">                <div class="icon on-favor-icon">                  <div class="wrap">                    <div class="curr-icon-wrap">                      <div class="curr-icon"></div>                    </div>                    <div style="display:none;" class="favor-success"><span class="msg">收藏成功</span>                      <div class="btns"><span class="btn btn-primary ok">确定</span></div>                    </div>                    <div style="display:none;" class="favor-failed"><span class="icon-danger-lg"></span><span class="msg">收藏失败，请重新收藏</span>                      <div class="btns"><span class="btn btn-primary ok">确定</span></div>                    </div>                    <form role="form" class="form-horizontal favor-form">                      <div class="form-group">                        <div class="clearfix">                          <label for="input-title" class="col-sm-2 control-label">标题</label>                          <div class="col-sm-10">                            <input id="inputTitle" type="text" placeholder="" class="title form-control">                          </div>                        </div>                        <div class="alert alert-danger"><strong></strong>标题不能为空</div>                      </div>                      <div class="form-group">                        <label for="input-url" class="col-sm-2 control-label">网址</label>                        <div class="col-sm-10">                          <input id="input-url" type="text" placeholder="" class="url form-control">                        </div>                      </div>                      <div class="form-group">                        <label for="input-tag" class="col-sm-2 tag control-label">标签</label>                        <div class="col-sm-10">                          <input id="input-tag" type="text" class="form-control tag">                        </div>                      </div>                      <div class="form-group">                        <label for="input-description" class="description col-sm-2 control-label">摘要</label>                        <div class="col-sm-10">                          <textarea id="input-description" class="form-control description"></textarea>                        </div>                      </div>                      <div class="form-group">                        <div class="col-sm-offset-2 col-sm-10 ft">                          <div class="col-sm-4 pull-left">                            <div class="checkbox">                              <label>                                <input type="checkbox" name="share" checked="checked" class="share">公开                              </label>                            </div>                          </div>                          <div class="col-sm-8 pull-right favor-btns">                            <button type="button" class="cancel btn btn-default">取消</button>                            <button type="submit" class="submit btn btn-primary">收藏</button>                          </div>                        </div>                      </div>                    </form>                  </div>                </div>              </li>              <li class="notify">                <div style="display:none" class="number"></div>                <div style="display:none" class="icon-hasnotes-sm"></div>                <div id="header_notice_num"></div>                <div class="icon on-notify-icon">                  <div class="wrap">                    <div class="curr-icon-wrap">                      <div class="curr-icon"></div>                    </div>                    <div id="note1" class="csdn_note">                      <div class="box"></div>                    <iframe src="about:block" frameborder="0" allowtransparency="true" style="z-index:-1;position:absolute;top:0;left:0;width:100%;height:100%;background:transparent"></iframe></div>                  </div>                </div>              </li>              <li class="ugc">                <div class="icon on-ugc-icon">                  <div class="wrap clearfix">                    <div class="curr-icon-wrap">                      <div class="curr-icon"></div>                    </div>                    <dl>                      <dt><a href="http://geek.csdn.net/news/expert?ref=toolbar" target="_blank" class="p-news clearfix"><em class="icon"></em><span>分享资讯</span></a></dt>                      <dt><a href="http://share.csdn.net/slides/new?ref=toolbar" target="_blank" class="p-doc clearfix"><em class="icon"></em><span>传PPT/文档</span></a></dt>                      <dt><a href="http://bbs.csdn.net/topics/new?ref=toolbar" target="_blank" class="p-ask clearfix"><em class="icon"></em><span>提问题</span></a></dt>                      <dt><a href="http://write.blog.csdn.net/postedit?ref=toolbar" target="_blank" class="p-blog clearfix"><em class="icon"></em><span>写博客</span></a></dt>                      <dt><a href="http://u.download.csdn.net/upload?ref=toolbar" target="_blank" class="p-src clearfix"><em class="icon"></em><span>传资源</span></a></dt>                      <dt><a href="https://code.csdn.net/projects/new?ref=toolbar" target="_blank" class="c-obj clearfix"><em class="icon"></em><span>创建项目</span></a></dt>                      <dt><a href="https://code.csdn.net/snippets/new?ref=toolbar" target="_blank" class="c-code clearfix"><em class="icon"></em><span>创建代码片</span></a></dt>                    </dl>                  </div>                </div>              </li>              <li class="profile">                <div class="icon on-profile-icon"><img src="./Instant Contiki 安装笔记——SDCC和CC2530 - 物联网 IoT 经验分享小站 - 博客频道 - CSDN.NET_files/100x100.jpg" class="curr-icon-img">                  <div class="wrap clearfix">                    <div class="curr-icon-wrap">                      <div class="curr-icon"></div>                    </div>                    <div class="bd">                      <dl class="clearfix">                        <dt class="pull-left img"><a target="_blank" href="http://my.csdn.net/?ref=toolbar" class="avatar"><img src="./Instant Contiki 安装笔记——SDCC和CC2530 - 物联网 IoT 经验分享小站 - 博客频道 - CSDN.NET_files/100x100.jpg"></a></dt>                        <dd class="info"><a target="_blank" href="http://my.csdn.net/?ref=toolbar" class="nickname"></a><a class="set-nick" href="https://passport.csdn.net/account/profile">设置昵称<span class="write-icon"></span></a><span class="dec"><a class="fill-dec" href="http://my.csdn.net/" target="_blank">编辑自我介绍，让更多人了解你<span class="write-icon"></span></a></span></dd>                      </dl>                    </div>                    <div class="ft clearfix"><a target="_blank" href="http://my.csdn.net/my/account/changepwd?ref=toolbar" class="pull-left"><span class="icon-cog"></span>帐号设置</a><a href="https://passport.csdn.net/account/logout?ref=toolbar" target="_top" class="pull-right "><span class="icon-signout"></span><span class="out">退出</span></a></div>                  </div>                </div>              </li>              <li class="apps">                <div class="icon on-apps-icon">                  <div class="wrap clearfix">                    <div class="curr-icon-wrap">                      <div class="curr-icon"></div>                    </div>                  <div class="detail">                    <dl>                      <dt>                        <h5>社区</h5>                      </dt>                      <dd> <a href="http://blog.csdn.net/?ref=toolbar" target="_blank">博客</a></dd>                      <dd> <a href="http://bbs.csdn.net/?ref=toolbar" target="_blank">论坛</a></dd>                      <dd> <a href="http://download.csdn.net/?ref=toolbar" target="_blank">下载</a></dd>                      <dd><a href="http://share.csdn.net/?ref=toolbar" target="_blank">Share</a></dd>                      <dd><a href="http://geek.csdn.net/?ref=toolbar" target="_blank">极客头条</a></dd>                    </dl>                  </div>                  <div class="detail">                    <dl>                      <dt>                        <h5>服务</h5>                      </dt>                      <dd> <a href="https://code.csdn.net/?ref=toolbar" target="_blank">CODE</a></dd>                      <dd> <a href="http://hero.csdn.net/?ref=toolbar" target="_blank">英雄会</a></dd>                      <dd> <a href="http://huiyi.csdn.net/?ref=toolbar" target="_blank">活动</a></dd>                      <dd> <a href="http://www.csto.com/?ref=toolbar" target="_blank">CSTO</a></dd>                    </dl>                  </div>                  <div class="detail last">                    <dl>                      <dt>                        <h5>俱乐部</h5>                      </dt>                      <dd> <a href="http://cto.csdn.net/?ref=toolbar" target="_blank">CTO俱乐部</a></dd>                      <dd> <a href="http://student.csdn.net/?ref=toolbar" target="_blank">高校俱乐部</a></dd>                    </dl>                  </div>                </div>              </div>            </li>            </ul>          </div>        </div>    </div>
+     <!--new top-->
+    <div id="container">
+        <div id="header">
+    <div class="header">
+        <div id="blog_title">
+            <h2>
+                <a href="http://blog.csdn.net/xukai871105">物联网 IoT 经验分享小站</a></h2>
+            <h3>三傻大闹宝莱坞——追求卓越</h3>
+            <div class="clear">
+            </div>
+        </div>
+        <div class="clear">
+        </div>
+    </div>
+</div>
+<div id="navigator">
+    <div class="navigator_bg">
+    </div>
+    <div class="navigator">
+        <ul>
+                <li id="btnContents"><a href="http://blog.csdn.net/xukai871105?viewmode=contents"><span onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_mulu&#39;])">
+                    <img src="./Instant Contiki 安装笔记——SDCC和CC2530 - 物联网 IoT 经验分享小站 - 博客频道 - CSDN.NET_files/ico_list.gif">目录视图</span></a></li>
+                <li id="btnView"><a href="http://blog.csdn.net/xukai871105?viewmode=list"><span onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_zhaiyao&#39;])">
+                    <img src="./Instant Contiki 安装笔记——SDCC和CC2530 - 物联网 IoT 经验分享小站 - 博客频道 - CSDN.NET_files/ico_summary.gif">摘要视图</span></a></li>
+                <li id="btnRss"><a href="http://blog.csdn.net/xukai871105/rss/list"><span onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_RSS&#39;])">
+                    <img src="./Instant Contiki 安装笔记——SDCC和CC2530 - 物联网 IoT 经验分享小站 - 博客频道 - CSDN.NET_files/ico_rss.gif">订阅</span></a></li>                
+
+            </ul>
+    </div>
+</div>
+<script type="text/javascript">
+    var username = "xukai871105";
+    var _blogger = username;
+    var blog_address = "http://blog.csdn.net/xukai871105";
+    var static_host = "http://static.blog.csdn.net";
+    var currentUserName = "";  
+</script>
+
+        <div id="body">
+            <div id="main">
+                <div class="main">
+                        <div class="ad_class">
+<div class="notice tracking-ad" data-mod="popu_3"> 
+
+<a href="http://bbs.csdn.net/topics/390812950?page=2#post-398116601" target="_blank">
+<font color="blue">博客专家福利
+</font></a>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<a href="http://blog.csdn.net/blogdevteam/article/details/39498125" target="_blank">
+<font color="red">2015年1月微软MVP申请开始啦</font></a>
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<a href="http://blog.csdn.net/blogdevteam/article/details/39894901" target="_blank">
+<font color="blue">话题讨论&amp;征文--谈论大数据时我们在谈什么
+</font></a>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<a href="http://weixin2014-sz.csdn.net/" target="_blank">
+<font color="red">微信开发者大会深圳站即将开幕
+</font></a>
+
+
+</div>                        </div>
+                        
+
+  
+<link href="./Instant Contiki 安装笔记——SDCC和CC2530 - 物联网 IoT 经验分享小站 - 博客频道 - CSDN.NET_files/comment1.css" type="text/css" rel="stylesheet">
+<link href="./Instant Contiki 安装笔记——SDCC和CC2530 - 物联网 IoT 经验分享小站 - 博客频道 - CSDN.NET_files/style1.css" type="text/css" rel="stylesheet">
+<script language="JavaScript" type="text/javascript" src="./Instant Contiki 安装笔记——SDCC和CC2530 - 物联网 IoT 经验分享小站 - 博客频道 - CSDN.NET_files/jquery.cookie.js"></script>
+<script type="text/javascript" src="./Instant Contiki 安装笔记——SDCC和CC2530 - 物联网 IoT 经验分享小站 - 博客频道 - CSDN.NET_files/main(1).js"></script>
+<div id="article_details" class="details">
+    <div class="article_title">   
+         <span class="ico ico_type_Original"></span>
+
+
+    <h1>
+        <span class="link_title"><a href="./Instant Contiki 安装笔记——SDCC和CC2530 - 物联网 IoT 经验分享小站 - 博客频道 - CSDN.NET_files/Instant Contiki 安装笔记——SDCC和CC2530 - 物联网 IoT 经验分享小站 - 博客频道 - CSDN.NET.htm">
+        Instant Contiki 安装笔记——SDCC和CC2530
+        </a></span>
+    </h1>
+</div>
+
+    <div class="article_manage">
+        <span class="link_categories">
+        分类：
+            <a href="http://blog.csdn.net/xukai871105/article/category/1129569" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_fenlei&#39;]);">Contiki</a> 
+        </span>
+    <span class="link_postdate">2013-06-29 19:15</span>
+    <span class="link_view" title="阅读次数">6798人阅读</span>
+    <span class="link_comments" title="评论次数"><a href="http://blog.csdn.net/xukai871105/article/details/9204101#comments" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_pinglun&#39;])">评论</a>(18)</span>
+    <span class="link_collect"><a href="javascript:void(0);" onclick="javascript:_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_shoucang&#39;]);collectArticle(&#39;Instant Contiki 安装笔记——SDCC和CC2530&#39;,&#39;9204101&#39;);return false;" title="收藏">收藏</a></span>
+    <span class="link_report"><a href="http://blog.csdn.net/xukai871105/article/details/9204101#report" onclick="javascript:_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_jubao&#39;]);report(9204101,2);return false;" title="举报">举报</a></span>
+    
+</div>
+<div class="tag2box"><a href="http://www.csdn.net/tag/contiki" target="_blank" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_tag&#39;]);">contiki</a><a href="http://www.csdn.net/tag/SDCC" target="_blank" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_tag&#39;]);">SDCC</a><a href="http://www.csdn.net/tag/CC2530" target="_blank" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_tag&#39;]);">CC2530</a></div>
+
+  
+    
+<div style="clear:both"></div><div style="border:solid 1px #ccc; background:#eee; float:left; min-width:200px;padding:4px 10px;"><p style="text-align:right;margin:0;"><span style="float:left;">目录<a href="http://blog.csdn.net/xukai871105/article/details/9204101#" title="系统根据文章中H1到H6标签自动生成文章目录">(?)</a></span><a href="http://blog.csdn.net/xukai871105/article/details/9204101#" onclick="javascript:return openct(this);" title="展开">[+]</a></p><ol style="display:none;margin-left:14px;padding-left:14px;line-height:160%;"><li><a href="http://blog.csdn.net/xukai871105/article/details/9204101#t0"></a></li><ol><li><a href="http://blog.csdn.net/xukai871105/article/details/9204101#t1"></a></li></ol></ol></div><div style="clear:both"></div><div id="article_content" class="article_content">
+
+<h1><a name="t0"></a></h1>
+<div style=""><span style="background-color:inherit; font-size:22px"><span style="background-color:inherit"><span style="color:#ae00ae; background-color:inherit">1.前言</span></span></span></div>
+<div style=""><span style="font-size:18px"><span style="">&nbsp; &nbsp; 【更多contiki和物联网笔记请参考——</span><a target="_blank" href="http://blog.csdn.net/xukai871105/article/details/23366187" style="">物联网学习笔记——索引博文</a><span style="">】</span>&nbsp;&nbsp;<br>
+</span>
+<div style=""><span style="font-size:18px">&nbsp; &nbsp; 【如果您使用的<span style="background-color:inherit"><span style="color:#e60013; background-color:inherit">Instant Contiki版本为2.7</span></span><span>&nbsp;</span>请忽略此文，Instant Coniti2.7中已经安装好了SDCC版本为8804，那么使用CC2530就没什么难度了】</span><br>
+</div>
+<div align="center" style=""><img src="./Instant Contiki 安装笔记——SDCC和CC2530 - 物联网 IoT 经验分享小站 - 博客频道 - CSDN.NET_files/20140412195426625" alt=""><br>
+</div>
+<div align="center" style=""><span style="font-size:18px">图 contiki 2.7中的SDCC版本</span></div>
+<br>
+<span style="font-size:18px">&nbsp;&nbsp;&nbsp; 本人现阶段为linux小白（2014年4月，学习玩树莓派之后稍微好些，从小白变为了菜鸟），但contiki的开发多数基于linux，这给个人的学习带来非常大的困难，跌跌撞撞好不容易在IAR上实现了点对点通信。但IAR平台开发contiki和linux平台开发contiki毕竟有所不同，所以尝试一下linux平台开发也有必要。</span></div>
+<div style=""><span style="font-size:18px">&nbsp; &nbsp; 在学习的过程中遇到了非常多的困难，大概有：<br style="background-color:inherit">
+</span></div>
+<div style=""><span style="font-size:18px">&nbsp; &nbsp;&nbsp;<span style="color:rgb(174,0,174); background-color:inherit"><span style="background-color:inherit">【困难】</span></span>6年前购买的笔记本电脑无法安装vmwave player，导致无法安装instant contiki（2014年4月，把该台笔记本安装了Debian，旧电脑当新电脑用）<span style="background-color:inherit"><span style="color:rgb(174,0,174); background-color:inherit">【解决办法】</span></span>拿了第一个月的工资买了一台新笔记本，成功安装instant
+ contiki，并完成了make和下载程序，总算克服了linux学习的PC关。</span></div>
+<div style=""><span style="font-size:18px">&nbsp; &nbsp;&nbsp;<span style="background-color:inherit"><span style="color:rgb(174,0,174); background-color:inherit">【困难】</span></span>linux知识匮乏。<span style="background-color:inherit"><span style="color:rgb(174,0,174); background-color:inherit">【解决办法】</span></span>购买和阅读相关linux图书，其中包括韦东山的图书，浏览了韦东山视频，购买了树莓派并不断”折腾“，逐渐克服了学习linux的心理关。【<a target="_blank" href="http://blog.csdn.net/xukai871105/article/details/23115627" style="background-color:inherit">树莓派学习笔记——索引博文</a>】</span></div>
+<div style=""><span style="font-size:18px">&nbsp; &nbsp;&nbsp;<span style="background-color:inherit"><span style="color:rgb(174,0,174); background-color:inherit">【困难】</span></span>无线平台选择，纠结于CC2430，CC2530和STM32W。<span style="background-color:inherit"><span style="color:rgb(174,0,174); background-color:inherit">【解决方法】</span></span>购买图书，阅读资料，从老型号开始学习。最后才发现平台类似，关键了解无线通信的基本概念，例如调制解调，发送和接收FIFO，功率和信道等概念。【<a target="_blank" href="http://blog.csdn.net/xukai871105/article/details/9897695" style="background-color:inherit">CC2530
+ RF部分使用 ——实现点对点收发</a><span>&nbsp;</span>】</span></div>
+<div style=""><span style="font-size:18px"><br style="background-color:inherit">
+</span></div>
+<div style=""><span style="font-size:18px">&nbsp; &nbsp; 下面就来说说instant contiki中安装SDCC过程，并最终实现make和hex文件的下载。在公司电脑偷偷尝试了几遍，在自己电脑中也尝试了很多遍，出现了很多细节错误，最后才实现了make hello-world。所以说大家学习contiki一定要耐心。<br style="background-color:inherit">
+</span></div>
+<div style=""><span style="font-size:18px">&nbsp; &nbsp; 【硬件平台说明】从淘宝购买某CC2530模块。</span></div>
+<div style=""><br style="background-color:inherit">
+</div>
+<div style=""><span style="background-color:inherit"><span style="color:#ae00ae; background-color:inherit; font-size:22px">2.安装instant contiki</span></span></div>
+<div style="">
+<div style="background-color:inherit"><span style="font-size:18px; color:#ae00ae; background-color:inherit"><span style="background-color:inherit">2.1 下载Instant Contiki</span></span></div>
+<div style="background-color:inherit"><span style="font-size:18px">&nbsp; &nbsp; 【<a target="_blank" href="http://sourceforge.net/projects/contiki/files/Instant%20Contiki/" style="background-color:inherit">contiki-2.6/contiki-2.7</a>】</span></div>
+<div style="background-color:inherit"><span style="font-size:18px">&nbsp; &nbsp; 文件大小约为2.0G，解压后约为5.0G，请下载之前准备好硬盘空间。</span></div>
+<div style="background-color:inherit"><span style="background-color:inherit"><span style="font-size:18px; color:#ae00ae; background-color:inherit">2.2 安装VMWare Player</span></span></div>
+<div style="background-color:inherit"><span style="font-size:18px">&nbsp; &nbsp;&nbsp;VMWare Player为<span style="background-color:inherit"><span style="color:#e60013; background-color:inherit"><strong>免费软件</strong></span></span>，可以放心使用。</span></div>
+<div style="background-color:inherit"><span style="background-color:inherit"><span style="font-size:18px; color:#ae00ae; background-color:inherit">2.3. 进入Instant Contiki.</span></span></div>
+<div style="background-color:inherit"><span style="font-size:18px">&nbsp; &nbsp; 请注意，密码为<span style="background-color:inherit"><span style="color:#ff0000"><strong>user</strong></span></span>。</span><br style="background-color:inherit">
+</div>
+</div>
+<div style=""><span style="background-color:inherit"><span style="font-size:18px; color:#ae00ae; background-color:inherit">2.4 剩余问题</span></span></div>
+<div style=""><span style="font-size:18px"><span style="color:rgb(174,0,174); background-color:inherit"><span style="background-color:inherit">&nbsp; &nbsp;&nbsp;</span></span>【未安装SDCC】</span></div>
+<div style=""><span style="font-size:18px"><span style="background-color:inherit"><span style="background-color:inherit">&nbsp; &nbsp;&nbsp;</span><span style="color:#e60013; background-color:inherit">Instant contiki其实就是ubuntu</span></span>，在ubuntu的基础上安装了cooja和msp430的编译环境，可以说instant
+ contiki是一个完善的开发环境，但是并没有安装SDCC，而CC2530正需要SDCC的支持才可以完成编译。</span></div>
+<div style=""><span style="font-size:18px">&nbsp; &nbsp; 【无法设置共享目录】<br style="background-color:inherit">
+</span></div>
+<div style=""><span style="font-size:18px">&nbsp; &nbsp; 需要解决共享目录问题，否则instant contiki的make生成的hex文件无法通过smartRF Flash Programmer下载至目标板，为了解决这个问题需要安装vmware-tools。（或者设置共享目录，通过复制粘贴也可以实现”共享“）</span></div>
+<div style=""><br style="background-color:inherit">
+</div>
+<div style=""><span style="background-color:inherit"><span style="color:#ae00ae; background-color:inherit; font-size:22px">3.定制SDCC</span></span></div>
+<div style=""><span style="font-size:18px">&nbsp; &nbsp; 在开始定制SDCC之前，有以下几点需要说明，这也是上文提到的细节错误。<span style="color:#e60013; background-color:inherit"><span style="background-color:inherit">如果不熟悉linux中从源代码安装软件，可以尝试从源代码安装python，源代码安装apache，练习两次那么安装SDCC就熟练多了。</span></span><br style="background-color:inherit">
+</span></div>
+<div style=""><span style="font-size:18px">&nbsp; &nbsp; 【1】使用sudo apt-get install sdcc指令安装SDCC，在instant contiki中<span style="background-color:inherit"><span style="color:#e60013; background-color:inherit">无法完成</span></span>cc2530的编译，所以需要下载SDCC的源代码进行编译，这个过程本质为一个定制SDCC的过程。</span></div>
+<div style=""><span style="font-size:18px">&nbsp; &nbsp; 【2】下载的并不是<span style="background-color:inherit">安装包</span>，而是SDCC的<span style="background-color:inherit">源代码</span>。简单的说这些SDCC的源代码可以编译成一个SDCC安装包。</span></div>
+<div style=""><span style="font-size:18px">&nbsp; &nbsp; 【3】关于SDCC的版本编号，建议安装<span style="background-color:inherit">7100</span>版本，虽然最新的版本为8447，但是实际安装的过程存在问题。</span></div>
+<div style=""><span style="font-size:18px">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; contiki-wiki中说明，<span style="background-color:inherit"><span style="color:#e60013; background-color:inherit">SDCC的版本7102到8719存在问题，最新可用的版本为8737（截止2014年4月）。</span></span></span></div>
+<div style=""><span style="font-size:18px">&nbsp; &nbsp; 【4】关于文件目录。在下面的具体过程中需要多次切换文件目录，一般的情况下第三方软件下载于opt目录。</span></div>
+<div style=""><br style="background-color:inherit">
+</div>
+<div style=""><span style="background-color:inherit"><span style="color:#ae00ae; background-color:inherit; font-size:22px">3.1 必要的前提准备</span></span></div>
+<div style=""><span style="background-color:inherit"><span style="font-size:18px; color:#ae00ae; background-color:inherit">3.1.1 安装Boost C++ Libraries</span></span></div>
+<div style="">
+<div style="background-color:inherit">
+<div style="background-color:inherit"><span style="font-size:18px"><span style="color:#ff00; background-color:inherit">&nbsp; &nbsp;<span>&nbsp;</span></span>指令：<span style="color:#ff0000; background-color:inherit"><span style="background-color:inherit">sudo apt-get install
+ libboost-graph-dev</span></span></span></div>
+<div style="background-color:inherit"><span style="background-color:inherit"><span style="font-size:18px; color:#ae00ae; background-color:inherit">3.1.2 安装srecord&nbsp;</span></span></div>
+</div>
+<div style="background-color:inherit"><span style="font-size:18px"><span style="color:#ff00; background-color:inherit">&nbsp; &nbsp;<span>&nbsp;</span></span>指令：<span style="color:#ff0000; background-color:inherit"><span style="background-color:inherit">sudo apt-get install
+ srecord</span></span></span></div>
+</div>
+<div style=""><span style="font-size:18px"><span style="color:#ff0000; background-color:inherit">&nbsp; &nbsp;<span>&nbsp;</span></span>以上两个部分安装的过程中都有可能出现下载速度非常缓慢的情况，如果您今天心情好，可以耐心等待；如果您今天心情不好，请改天再试试。如果你实在无法忍受请修改<a target="_blank" href="http://wiki.ubuntu.org.cn/%E6%BA%90%E5%88%97%E8%A1%A8" style="background-color:inherit">ubuntu软件源</a>。</span></div>
+<div style=""><br style="background-color:inherit">
+</div>
+<div style=""><span style="background-color:inherit"><span style="font-size:18px; color:#ae00ae; background-color:inherit">3.2 下载SDCC源代码</span></span></div>
+<div style=""><span style="background-color:inherit"><span style="font-size:18px; color:#ae00ae; background-color:inherit">3.2.1 调整目录至opt</span></span></div>
+<div style=""><span style="font-size:18px">&nbsp; &nbsp; 在下载SDCC源代码之前，最好把目录调整为opt。（SDCC源代码包随便您放在哪里目录）<br style="background-color:inherit">
+</span></div>
+<div style=""><span style="font-size:18px">&nbsp; &nbsp; 指令：cd /opt</span><br style="background-color:inherit">
+</div>
+<div style=""><span style="background-color:inherit"><span style="font-size:18px; color:#ae00ae; background-color:inherit">3.2.2 通过SVN命令下载SDCC</span></span></div>
+<div style=""><span style="font-size:18px">&nbsp; &nbsp; 接着使用svn命令获得位于sourceforge的sdcc源代码，其中7100为版本号，建议使用该版本<br style="background-color:inherit">
+</span></div>
+<div style=""><span style="font-size:18px">&nbsp;&nbsp;&nbsp;&nbsp;指令：sudo svn co -r 7100&nbsp;<a target="_blank" href="https://sdcc.svn.sourceforge.net/svnroot/sdcc/trunk/sdcc/" style="background-color:inherit">https://sdcc.svn.sourceforge.net/svnroot/sdcc/trunk/sdcc/</a></span></div>
+<div style=""><span style="font-size:18px">&nbsp; &nbsp; 【特别注意】<span style="background-color:inherit"><span style="color:#e60013; background-color:inherit">SDCC的版本7102到8719存在问题，最新可用的版本为8737（截止2014年4月）</span></span></span></div>
+<div style=""><span style="font-size:18px">&nbsp; &nbsp; 【技巧提示】虽然在控制台中无法使用ctrl-c和ctrl-v，但是可以使用<span style="background-color:inherit">右击+paste</span>，这样可以加快输入的速度并避免错误。<br style="background-color:inherit">
+</span></div>
+<div style=""><span style="font-size:18px">&nbsp; &nbsp; 【技巧提示】SVN为版本库管理工具，相关的工具还包括HG和GIT。</span></div>
+<div style=""><span style="font-size:18px">&nbsp; &nbsp; 下载完之后，可以在opt/sdcc目录下看到以下文件：</span></div>
+<div style="font-family:Tahoma; font-size:16px"><br>
+</div>
+<div align="center" style="font-family:Tahoma; font-size:16px">
+<p><img src="./Instant Contiki 安装笔记——SDCC和CC2530 - 物联网 IoT 经验分享小站 - 博客频道 - CSDN.NET_files/20130629190600203" alt=""><br>
+</p>
+<p>图1 opt/sdcc文件夹内容</p>
+</div>
+<div style=""><br style="background-color:inherit">
+</div>
+<div style=""><span style="background-color:inherit"><span style="font-size:18px; color:#ae00ae; background-color:inherit">3.3 配置SDCC</span></span></div>
+<div style=""><span style="font-size:18px">&nbsp; &nbsp; 需要修改两处配置文件，个人喜欢使用gedit。</span><br style="background-color:inherit">
+</div>
+<div style=""><span style="background-color:inherit"><span style="font-size:18px; color:#ae00ae; background-color:inherit">3.3.1 修改MODELS配置</span></span></div>
+<div style=""><span style="font-size:18px">&nbsp; &nbsp; 指令：<span style="background-color:inherit">sudo gedit&nbsp;/opt/sdcc/device/lib/incl.mk</span></span></div>
+<div style="">
+<div style="background-color:inherit"><span style="font-size:18px">&nbsp;&nbsp;&nbsp;&nbsp;将最后一行</span></div>
+<div style="background-color:inherit"><span style="color:#0000ff; background-color:inherit"><span style="font-size:18px">&nbsp;&nbsp;&nbsp;&nbsp;MODELS =<span>&nbsp;</span><span style="background-color:inherit">small medium large</span></span></span></div>
+<div style="background-color:inherit"><span style="font-size:18px">&nbsp;&nbsp;&nbsp;&nbsp;替换为</span></div>
+<div style="background-color:inherit"><span style="color:#ff0000; background-color:inherit"><span style="font-size:18px">&nbsp;&nbsp;&nbsp;&nbsp;MODELS =<span>&nbsp;</span><span style="background-color:inherit">small large huge</span></span></span></div>
+</div>
+<div style=""><span style="font-size:18px">&nbsp; &nbsp; 替换结果如图所示：</span></div>
+<div style="font-family:Tahoma; font-size:16px"><br>
+</div>
+<div align="center" style="font-family:Tahoma; font-size:16px"><img src="./Instant Contiki 安装笔记——SDCC和CC2530 - 物联网 IoT 经验分享小站 - 博客频道 - CSDN.NET_files/20130629190632109" alt=""><br>
+图2 修改iMODELS</div>
+<div style=""><span style="background-color:inherit"><span style="font-size:18px; color:#ae00ae; background-color:inherit">3.3.2 修改TAGETS配置</span></span></div>
+<div style=""><span style="font-size:18px">&nbsp; &nbsp; 指令：sudo gedit&nbsp;/opt/sdcc/device/lib/incl.mk</span></div>
+<div style="">
+<div style="background-color:inherit"><span style="font-size:18px">&nbsp;&nbsp;&nbsp;&nbsp;将某行</span></div>
+<div style="background-color:inherit"><span style="color:#0000ff; background-color:inherit"><span style="font-size:18px">&nbsp;&nbsp;&nbsp;&nbsp;<span style="background-color:inherit">TARGETS += models small-mcs51-stack-auto</span></span></span></div>
+<div style="background-color:inherit"><span style="font-size:18px">&nbsp;&nbsp;&nbsp;&nbsp;替换为</span></div>
+<div style="background-color:inherit"><span style="color:#ff0000; background-color:inherit"><span style="font-size:18px">&nbsp;&nbsp;&nbsp;&nbsp;<span style="background-color:inherit">TARGETS += models model-mcs51-stack-auto</span></span></span></div>
+</div>
+<div style=""><span style="font-size:18px">&nbsp;&nbsp;&nbsp;&nbsp;【技巧提示】如果找不到该行可以通过search搜索以下。<br style="background-color:inherit">
+</span></div>
+<div style=""><span style="font-size:18px">&nbsp; &nbsp; 替换结果如图所示：</span></div>
+<div style="font-family:Tahoma; font-size:16px"><br>
+</div>
+<div align="center" style="font-family:Tahoma; font-size:16px"><img src="./Instant Contiki 安装笔记——SDCC和CC2530 - 物联网 IoT 经验分享小站 - 博客频道 - CSDN.NET_files/20130629190647718" alt=""><br>
+</div>
+<div align="center" style="">图3 修改TAGETS</div>
+<div style=""><br style="background-color:inherit">
+</div>
+<div style=""><span style="background-color:inherit"><span style="font-size:18px; color:#ae00ae; background-color:inherit">3.4 配置三步曲——configure、make、make install</span></span></div>
+<div style=""><span style="font-size:18px">&nbsp; &nbsp; 开始之前需要使用cd命令把路径转移至opt/sdcc，以便进行configure和make。在开始这三部曲之前，最好先对这三个过程有所了解。（以下3点来自百度知道）</span></div>
+<div style="">
+<div style="background-color:inherit"><span style="font-size:18px">&nbsp; &nbsp; 【1】<span style="color:#ff0000; background-color:inherit">&nbsp;配置</span>sudo ./configure&nbsp;</span></div>
+<div style="background-color:inherit"><span style="font-size:18px">./configure命令就是执行当前目录的名为configure的脚本,主要的作用是对即将安装的软件进行配置。</span></div>
+<div style="background-color:inherit"><span style="font-size:18px">&nbsp; &nbsp; 【2】<span style="color:#ff0000; background-color:inherit">编译</span>sudo make</span></div>
+<div style="background-color:inherit"><span style="font-size:18px">make的基本用处是自动根据makefile里的指令来编译源文件。</span></div>
+<div style="background-color:inherit"><span style="font-size:18px">&nbsp; &nbsp; 【3】&nbsp;<span style="color:#ff0000; background-color:inherit">安装</span>sudo make install</span></div>
+<div style="background-color:inherit"><span style="font-size:18px">make install：将程序安装至系统中。如果原始码编译无误，且执行结果正确，便可以把程序安装至系统预设的可执行文件存放路径——默认<span style="color:#ff0000; background-color:inherit">/usr/local/bin</span></span></div>
+</div>
+<div style=""><span style="color:#ff0000; background-color:inherit"><br style="background-color:inherit">
+</span></div>
+<div style=""><span style="background-color:inherit"><span style="font-size:18px; color:#ae00ae; background-color:inherit">3.4.1 configure</span></span></div>
+<div style=""><span style="font-size:18px">&nbsp; &nbsp; 该步骤的主要作用使得SDCC仅支持8051，而禁止对其他MCU的支持。输入以下指令，由于指令较长建议使用paste。<br style="background-color:inherit">
+</span></div>
+<div style=""><span style="font-size:18px">指令：&nbsp; sudo ./configure --disable-gbz80-port --disable-z80-port --disable-ds390-port \</span></div>
+<div style=""><span style="font-size:18px">&nbsp; --disable-ds400-port --disable-pic14-port --disable-pic16-port \</span></div>
+<div style=""><span style="font-size:18px">&nbsp; --disable-hc08-port --disable-r2k-port --disable-z180-port \</span></div>
+<div style=""><span style="font-size:18px">&nbsp; --disable-sdcdb --disable-ucsim</span></div>
+<div style=""><span style="font-size:18px">&nbsp; &nbsp; 由于指令较长，使用了'\"实现续行功能。<span style="color:#e60013; background-color:inherit"><span style="background-color:inherit">”./“代表当前路径</span></span>，configure为一个可执行文件，后面的若干disable为设置参数，即静止其他类型的MCU。</span></div>
+<div style=""><br style="background-color:inherit">
+</div>
+<div style=""><span style="background-color:inherit"><span style="font-size:18px; color:#ae00ae; background-color:inherit">3.4.2 make</span></span></div>
+<div style=""><span style="font-size:18px">输入指令：<span style="background-color:inherit">sudo make</span></span></div>
+<div style=""><br style="background-color:inherit">
+</div>
+<div style=""><span style="background-color:inherit"><span style="font-size:18px; color:#ae00ae; background-color:inherit">3.4.3 make install</span></span></div>
+<div style=""><span style="font-size:18px">指令：<span style="background-color:inherit">sudo make install</span></span></div>
+<div style=""><br style="background-color:inherit">
+</div>
+<div style=""><span style="background-color:inherit"><span style="font-size:18px; color:#ae00ae; background-color:inherit">3.5 验证安装</span></span></div>
+<div style=""><span style="font-size:18px">&nbsp; &nbsp; 安装完成需要验证以下安装是否正确，可以回到home目录，输入以下命令：<br style="background-color:inherit">
+</span></div>
+<div style=""><span style="font-size:18px">&nbsp; &nbsp; 指令：<span style="background-color:inherit">sdcc -v</span></span></div>
+<div style=""><span style="font-size:18px">&nbsp; &nbsp; 查看SDCC版本编号，如果SVN操作时输入的版本号为<span style="background-color:inherit">7100</span>，此时查看到的版本也应为7100。<br style="background-color:inherit">
+</span></div>
+<div style=""><span style="font-size:18px">&nbsp; &nbsp; 指令：<span style="background-color:inherit">which sdcc</span><br style="background-color:inherit">
+</span></div>
+<div style=""><span style="font-size:18px">&nbsp; &nbsp; 查看SDCC该可执行文件路径。该路径应该为<span style="background-color:inherit">/usr/local/bin/sdcc</span></span></div>
+<div style="font-family:Tahoma; font-size:16px"><strong></strong></div>
+<div align="center" style="font-family:Tahoma; font-size:16px"><img src="./Instant Contiki 安装笔记——SDCC和CC2530 - 物联网 IoT 经验分享小站 - 博客频道 - CSDN.NET_files/20130629190705234" alt=""><br>
+图4 检查SDCC是否安装成功</div>
+<div style=""><br style="background-color:inherit">
+</div>
+<div style=""><span style="background-color:inherit"><span style="color:#ae00ae; background-color:inherit; font-size:22px">4.执行三部曲——编译、下载和运行</span></span></div>
+<div style=""><span style="font-size:18px">&nbsp; &nbsp; 如果SDCC安装成功，那么contiki就会变得非常简单。和IAR环境下开发一样，首先需要编译工程以便生成hex文件，然后使用smartRF Flash Programmer下载该hex文件至目标板，之后便可通过串口调试助手等工具观察程序运行情况。</span><br style="background-color:inherit">
+</div>
+<div style=""><span style="background-color:inherit"><span style="font-size:18px; color:#ae00ae; background-color:inherit">4.1 编译</span></span></div>
+<div style=""><span style="font-size:18px">&nbsp; &nbsp; 在编译之前，需要使用cd命令<span style="background-color:inherit"><span style="color:#e60013; background-color:inherit">调整目录至/contiki/example/cc2530dk</span></span><br style="background-color:inherit">
+</span></div>
+<div style=""><span style="font-size:18px">&nbsp; &nbsp;<span>&nbsp;</span><span style="background-color:inherit">cd ~/contiki/examples/cc2530dk</span><br style="background-color:inherit">
+</span></div>
+<div style=""><span style="font-size:18px">&nbsp;&nbsp;&nbsp;&nbsp;【技巧提示】 ''~"为home，其实为/home/user。(2014年4月，我当时真的纠结好久，的确不明白~波浪线的用处，好囧)</span></div>
+<div style=""><span style="font-size:18px">&nbsp; &nbsp; 接着便是编译文件，例如编译blink-hello<br style="background-color:inherit">
+</span></div>
+<div style=""><span style="font-size:18px">&nbsp; &nbsp;<span>&nbsp;</span><span style="background-color:inherit">make blink-hello</span><br style="background-color:inherit">
+</span></div>
+<div style=""><span style="font-size:18px">&nbsp; &nbsp; 初次编译时间可能比较长，下图为编译结果和生成的hex文件。</span></div>
+<div style="font-family:Tahoma; font-size:16px"></div>
+<div style="font-family:Tahoma; font-size:16px"><br>
+</div>
+<div align="center" style="font-family:Tahoma; font-size:16px"><img src="./Instant Contiki 安装笔记——SDCC和CC2530 - 物联网 IoT 经验分享小站 - 博客频道 - CSDN.NET_files/20130629190740937" alt=""><br>
+<span style="">图5 编译结果</span><br>
+</div>
+<div style="font-family:Tahoma; font-size:16px"><br>
+</div>
+<div align="center" style="font-family:Tahoma; font-size:16px"><img src="./Instant Contiki 安装笔记——SDCC和CC2530 - 物联网 IoT 经验分享小站 - 博客频道 - CSDN.NET_files/20130629190800812" alt=""><br>
+<span style="">图6 生成HEX结果</span><br>
+</div>
+<h2><a name="t1"></a></h2>
+<div style=""><span style="background-color:inherit"><span style="font-size:18px; color:#ae00ae; background-color:inherit">4.2 下载</span></span></div>
+<div style=""><span style="font-size:18px">&nbsp; &nbsp; 该步骤可以回到windows中，如果设置共享目录可以把hex文件转移至共享目录，若没有设置共享目录，可以直接<span style="background-color:inherit">复制</span>hex文件，然后在windows某文件中<span style="background-color:inherit">粘贴</span>。PS：虽然复制粘贴的方式如此简单，但是刚上手linux的时候连这个都不敢尝试，总想着通过某种指令完成操作，例如复制文件，粘贴文件，解压缩文件。后来发现这些操作在ubuntu中和windows中几乎是一样的，非常方便。<br style="background-color:inherit">
+</span></div>
+<div style=""><span style="font-size:18px">&nbsp; &nbsp; 接着便可通过<span style="background-color:inherit">smartRF Flash Programmer</span>下载hex文件，操作如下图所示：</span></div>
+<div style="font-family:Tahoma; font-size:16px"></div>
+<div align="center" style="font-family:Tahoma; font-size:16px"><img src="./Instant Contiki 安装笔记——SDCC和CC2530 - 物联网 IoT 经验分享小站 - 博客频道 - CSDN.NET_files/20130629190836078" alt=""><br>
+</div>
+<div align="center" style="font-family:Tahoma; font-size:16px"></div>
+<div align="center" style=""><span style="font-size:18px">图7 下载HEX至目标板</span></div>
+<div style=""><br style="background-color:inherit">
+</div>
+<div style=""><span style="background-color:inherit"><span style="font-size:18px; color:#ae00ae; background-color:inherit">4.3 运行</span></span></div>
+<div style=""><span style="font-size:18px">&nbsp; &nbsp; 通过串口调试助手观察结果。简单的说，blink-hello.c中定义了两个任务，<span style="background-color:inherit"><span style="color:#e60013; background-color:inherit">一个任务每4S运行一次，另一任务每1S运行一次，两个任务均通过串口打印数据。</span></span>该例子主要演示contiki中<span style="background-color:inherit">protothread</span>机制如何实现任务的并发（或者达到类似并发的效果）。运行结果如下图所示，代码会在以后的博文中分析。请注意，波特率需要设定为<span style="background-color:inherit">115200-8-N-1</span>。</span></div>
+<div style="font-family:Tahoma; font-size:16px"></div>
+<div align="center" style="font-family:Tahoma; font-size:16px"><img src="./Instant Contiki 安装笔记——SDCC和CC2530 - 物联网 IoT 经验分享小站 - 博客频道 - CSDN.NET_files/20130629190857703" alt=""><br>
+</div>
+<div align="center" style="">图8 运行结果</div>
+<div style=""><br style="background-color:inherit">
+</div>
+<div style=""><span style="background-color:inherit"><span style="color:#ae00ae; background-color:inherit; font-size:22px">5.总结</span></span></div>
+<div style=""><span style="font-size:18px">&nbsp; &nbsp; 其实contiki的实践过程非常简单，如果按照本文下载安装SDCC的话需要不到2个小时的时间，下载一个例子也不会超过5分钟。现在看看这些过程都非常简单，但是却前后花费了1年多的时间。回想起自己刚刚入门学习ARM，也经历了前期憧憬与畏惧，买书学习，购置开发板，迷茫于IDE和仿真器，写代码调试等过程，到最终熟练使用差不多也花费了1年的时间。现在回过头来看看学习contiki和STM32都是”美妙“的过程，先要有想法接着就是不气馁地不断实践。<br style="background-color:inherit">
+</span></div>
+<div style=""><span style="font-size:18px">&nbsp; &nbsp; 如果有关于contiki的问题，可以邮件xukai19871105@126.com。<br style="background-color:inherit">
+</span></div>
+<div style=""><span style="font-size:18px">&nbsp; &nbsp; 最后感谢我的前同事们（www.wsn.com），正是在工作的过程中加深了对无线传感网络的理解。</span><br style="background-color:inherit">
+</div>
+<div style=""><br style="background-color:inherit">
+</div>
+<div style=""><span style="background-color:inherit"><span style="color:#ae00ae; background-color:inherit; font-size:22px">6.参考资料</span></span></div>
+<div style=""><span style="font-size:18px">【1】<a target="_blank" href="https://github.com/contiki-os/contiki/wiki/8051-Requirements" style="background-color:inherit"><span>&nbsp;</span>国外”原装资料“</a>&nbsp;</span></div>
+<div style=""><span style="font-size:18px">【3】&nbsp;<a target="_blank" href="http://www.marshut.com/member/George%20Oikonomou.html" style="background-color:inherit">国外”原装资料“</a>该网页为<span style="background-color:inherit; text-align:left">George Oikonomou回答爱好者的若干提问，其中也可以找到关于SDCC安装版本的信息等其他有用资料。</span></span></div>
+<div style=""><span style="background-color:inherit; text-align:left"><span style="font-size:18px">【3】<span>&nbsp;</span><a target="_blank" href="http://www.amobbs.com/thread-5515866-1-1.html" style="background-color:inherit">国内先驱</a></span></span></div>
+<br>
+<div style="font-family:Tahoma; font-size:16px"></div>
+<div style="font-family:Tahoma; font-size:16px"><span style="font-family:宋体; font-size:14px"></span></div>
+<div style="font-family:Tahoma; font-size:16px"><span style="font-family:宋体; font-size:14px"></span></div>
+<div style="font-family:Tahoma; font-size:16px"><span style="font-family:宋体; font-size:14px"></span></div>
+<br>
+
+</div>
+
+
+
+
+<!-- Baidu Button BEGIN -->
+
+<div class="bdsharebuttonbox bdshare-button-style0-16" style="float: right;" data-bd-bind="1413249586919">
+<a href="http://blog.csdn.net/xukai871105/article/details/9204101#" class="bds_more" data-cmd="more" style="background-position:0 0 !important; background-image: url(http://bdimg.share.baidu.com/static/api/img/share/icons_0_16.png?v=d754dcc0.png) !important"></a>
+<a href="http://blog.csdn.net/xukai871105/article/details/9204101#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间" style="background-position:0 -52px !important"></a>
+<a href="http://blog.csdn.net/xukai871105/article/details/9204101#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博" style="background-position:0 -104px !important"></a>
+<a href="http://blog.csdn.net/xukai871105/article/details/9204101#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博" style="background-position:0 -260px !important"></a>
+<a href="http://blog.csdn.net/xukai871105/article/details/9204101#" class="bds_renren" data-cmd="renren" title="分享到人人网" style="background-position:0 -208px !important"></a>
+<a href="http://blog.csdn.net/xukai871105/article/details/9204101#" class="bds_weixin" data-cmd="weixin" title="分享到微信" style="background-position:0 -1612px !important"></a>
+</div>
+<script>window._bd_share_config = { "common": { "bdSnsKey": {}, "bdText": "", "bdMini": "1", "bdMiniList": false, "bdPic": "", "bdStyle": "0", "bdSize": "16" }, "share": {} }; with (document) 0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion=' + ~(-new Date() / 36e5)];</script>
+<!-- Baidu Button END -->
+
+<!--192.168.100.35-->
+<ul class="article_next_prev">
+            <li class="prev_article"><span onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_shangyipian&#39;]);location.href=&#39;/xukai871105/article/details/9152525&#39;;">上一篇</span><a href="http://blog.csdn.net/xukai871105/article/details/9152525" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_shangyipian&#39;])">contiki学习笔记 etimer部分</a></li>
+            <li class="next_article"><span onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_xiayipian&#39;]);location.href=&#39;/xukai871105/article/details/9207203&#39;;">下一篇</span><a href="http://blog.csdn.net/xukai871105/article/details/9207203" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_xiayipian&#39;])">contiki CC2530 CC2430例子描述</a></li>
+</ul>
+
+<!-- Baidu Button BEGIN -->
+<script type="text/javascript" id="bdshare_js" data="type=tools&amp;uid=1536434" src="./Instant Contiki 安装笔记——SDCC和CC2530 - 物联网 IoT 经验分享小站 - 博客频道 - CSDN.NET_files/bds_s_v2.js"></script>
+
+<script type="text/javascript">
+    document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + Math.ceil(new Date()/3600000)
+</script>
+<!-- Baidu Button END -->
+
+
+        <div id="digg" articleid="9204101">
+            <dl id="btnDigg" class="digg digg_disable">
+                <dt onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_ding&#39;])">顶</dt>
+                <dd>3</dd>
+            </dl>
+            <dl id="btnBury" class="digg digg_disable">
+                <dt onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_cai&#39;])">踩</dt>
+                <dd>1</dd>
+            </dl>
+        </div>
+</div>
+      <dl class="blog-associat-tag">
+        <dt>主题推荐</dt>
+        <dd>
+                <a href="http://www.csdn.net/tag/sdcc" target="_blank" class="blog-tage-red">sdcc</a> 
+                <a href="http://www.csdn.net/tag/%E7%99%BE%E5%BA%A6%E7%9F%A5%E9%81%93" target="_blank" class="blog-tage-red">百度知道</a> 
+                <a href="http://www.csdn.net/tag/%E7%AC%94%E8%AE%B0%E6%9C%AC" target="_blank" class="blog-tage-red">笔记本</a> 
+                <a href="http://www.csdn.net/tag/%E7%89%A9%E8%81%94%E7%BD%91" target="_blank" class="blog-tage-red">物联网</a> 
+                <a href="http://www.csdn.net/tag/sourceforge" target="_blank" class="blog-tage-red">sourceforge</a> 
+        </dd>
+    </dl> 
+
+
+<dl class="blog-ass-articl tracking-ad" data-mod="popu_36" id="res-relatived"> 
+     <dt><span>猜你在找</span></dt>    
+<dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px;"><a href="http://blog.csdn.net/hurry_liu/article/details/12032773" title="STM32移植contiki进阶之三（中）：timer 中文版" strategy="CFRecommendAlgorithm" target="_blank">STM32移植contiki进阶之三（中）：timer 中文版</a></dd><dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px;"><a href="http://blog.csdn.net/crystal736/article/details/8519448" title="UIP成功移植到CC2530上" strategy="CFRecommendAlgorithm" target="_blank">UIP成功移植到CC2530上</a></dd><dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px;"><a href="http://blog.csdn.net/apn172/article/details/7237545" title="五大无线技术比较（ZigBee、UWB、Wi-Fi、蓝牙、NFC）" strategy="CFRecommendAlgorithm" target="_blank">五大无线技术比较（ZigBee、UWB、Wi-Fi、蓝牙、NFC）</a></dd><dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px;"><a href="http://blog.csdn.net/sonbai/article/details/11867087" title="ZigBee研究之旅（三）---CC2530的电源管理模块" strategy="CFRecommendAlgorithm" target="_blank">ZigBee研究之旅（三）---CC2530的电源管理模块</a></dd><dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px;"><a href="http://blog.csdn.net/followingturing/article/details/7863168" title="python 读取excel表格并写入sqllite数据库" strategy="CFRecommendAlgorithm" target="_blank">python 读取excel表格并写入sqllite数据库</a></dd><dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px;"><a href="http://blog.csdn.net/xukai871105/article/details/17562807" title="PHP再学习3——RT Thread + LwIP提交表单，文本保存数据" strategy="CFRecommendAlgorithm" target="_blank">PHP再学习3——RT Thread + LwIP提交表单，文本保存数据</a></dd><dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px;"><a href="http://blog.csdn.net/dayeshisir/article/details/6322751" title="打造Fedora 14安装U盘" strategy="CFRecommendAlgorithm" target="_blank">打造Fedora 14安装U盘</a></dd><dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px;"><a href="http://blog.csdn.net/mygodhome/article/details/9160953" title="使用2to3将代码移植到Python 3" strategy="CFRecommendAlgorithm" target="_blank">使用2to3将代码移植到Python 3</a></dd><dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px;"><a href="http://blog.csdn.net/monsion/article/details/20631737" title="使用python解析json文件" strategy="CFRecommendAlgorithm" target="_blank">使用python解析json文件</a></dd><dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px;"><a href="http://blog.csdn.net/loveyou426/article/details/7833611" title="GPIO接口(转)" strategy="CFRecommendAlgorithm" target="_blank">GPIO接口(转)</a></dd></dl>
+
+<script type="text/javascript">
+    var searchtitletags = 'Instant Contiki 安装笔记——SDCC和CC2530' + ',' + 'sdcc,百度知道,笔记本,物联网,sourceforge';
+    searchService({
+        index: 'blog',
+        query: searchtitletags,
+        from: 10,
+        size: 10,
+        appendTo: '#res-relatived',
+        url: 'recommend',
+        his: 2,
+        client: "blog_cf_enhance",
+        tmpl: '<dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px;"><a href="#{ url }" title="#{ title }" strategy="#{ strategy }">#{ title }</a></dd>'
+    });
+
+ </script>   
+
+
+    <div id="ad_cen">
+   
+          <script type="text/javascript">
+              new Ad(4, 'ad_cen');
+          </script>
+    <iframe id="ad_frm_0" frameborder="0" scrolling="no" src="./Instant Contiki 安装笔记——SDCC和CC2530 - 物联网 IoT 经验分享小站 - 博客频道 - CSDN.NET_files/ad.htm" style="border-width: 0px; overflow: hidden; width: 984px; height: 90px;"></iframe></div>
+<div class="comment_class">
+    <div id="comment_title" class="panel_head">
+        <span class="see_comment">查看评论</span><a name="comments"></a></div>
+    <div id="comment_list"><dl class="comment_item comment_topic" id="comment_item_4010585"><dt class="comment_head" floor="6">6楼 <span class="user"><a class="username" href="http://blog.csdn.net/MilkXing" target="_blank">Milk-星</a> <span class="ptime">2014-07-01 09:51发表</span>  <a href="http://blog.csdn.net/xukai871105/article/details/9204101#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="4010585" username="MilkXing"> <a href="http://blog.csdn.net/xukai871105/article/details/9204101#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/xukai871105/article/details/9204101#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/MilkXing" target="_blank"><img src="./Instant Contiki 安装笔记——SDCC和CC2530 - 物联网 IoT 经验分享小站 - 博客频道 - CSDN.NET_files/3_milkxing.jpg" width="40" height="40"></a></dd><dd class="comment_body">我想问下，为什么的哦下载的 2.6 编译出来的程序为什么只出现第一行，下面的Blink确一直没有，我需要怎么调试呢</dd></dl><dl class="comment_item comment_topic" id="comment_item_4010579"><dt class="comment_head" floor="5">5楼 <span class="user"><a class="username" href="http://blog.csdn.net/MilkXing" target="_blank">Milk-星</a> <span class="ptime">2014-07-01 09:50发表</span>  <a href="http://blog.csdn.net/xukai871105/article/details/9204101#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="4010579" username="MilkXing"> <a href="http://blog.csdn.net/xukai871105/article/details/9204101#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/xukai871105/article/details/9204101#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/MilkXing" target="_blank"><img src="./Instant Contiki 安装笔记——SDCC和CC2530 - 物联网 IoT 经验分享小站 - 博客频道 - CSDN.NET_files/3_milkxing.jpg" width="40" height="40"></a></dd><dd class="comment_body">我想问下，为什么的哦下载的 2.6 编译出来的程序为什么只出现第一行，下面的Blink确一直没有，我需要怎么调试呢</dd><dl class="comment_item comment_reply" id="comment_item_4010639"><dt class="comment_head" floor="5">Re: <span class="user"><a class="username" href="http://blog.csdn.net/xukai871105" target="_blank">xukai871105</a> <span class="ptime">2014-07-01 09:58发表</span>  <a href="http://blog.csdn.net/xukai871105/article/details/9204101#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="4010639" username="xukai871105"> <a href="http://blog.csdn.net/xukai871105/article/details/9204101#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/xukai871105/article/details/9204101#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/xukai871105" target="_blank"><img src="./Instant Contiki 安装笔记——SDCC和CC2530 - 物联网 IoT 经验分享小站 - 博客频道 - CSDN.NET_files/3_xukai871105.jpg" width="40" height="40"></a></dd><dd class="comment_body">回复MilkXing：contiki的调试比较困难，我建议你下载contiki 2.7测试一下，不用安装SDCC，已经预装在里面了！</dd></dl></dl><dl class="comment_item comment_topic" id="comment_item_3759345"><dt class="comment_head" floor="4">4楼 <span class="user"><a class="username" href="http://blog.csdn.net/vosamo007" target="_blank">vosamo007</a> <span class="ptime">2014-04-21 16:39发表</span>  <a href="http://blog.csdn.net/xukai871105/article/details/9204101#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="3759345" username="vosamo007"> <a href="http://blog.csdn.net/xukai871105/article/details/9204101#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/xukai871105/article/details/9204101#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/vosamo007" target="_blank"><img src="./Instant Contiki 安装笔记——SDCC和CC2530 - 物联网 IoT 经验分享小站 - 博客频道 - CSDN.NET_files/3_vosamo007.jpg" width="40" height="40"></a></dd><dd class="comment_body">你好，请教一个问题。我想在instant-contiki下面把contiki移植到cc2538上，但是我按照http://www.contiki-os.org/start.html中的step 4以及http://blog.csdn.net/ferlansue/article/details/7256964这里面说的做的时候，make TARGET=native会生成一个hello-world.native，然后./hello-world.native可以得到输出结果，然而我改成make TARGET=cc2538dk之后也能生成一个hello-world.cc2538dk，但是执行./hello-world.cc2538dk的时候却报错cannot execute binary file，这是为什么呢？</dd><dl class="comment_item comment_reply" id="comment_item_3760477"><dt class="comment_head" floor="4">Re: <span class="user"><a class="username" href="http://blog.csdn.net/xukai871105" target="_blank">xukai871105</a> <span class="ptime">2014-04-21 21:46发表</span>  <a href="http://blog.csdn.net/xukai871105/article/details/9204101#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="3760477" username="xukai871105"> <a href="http://blog.csdn.net/xukai871105/article/details/9204101#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/xukai871105/article/details/9204101#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/xukai871105" target="_blank"><img src="./Instant Contiki 安装笔记——SDCC和CC2530 - 物联网 IoT 经验分享小站 - 博客频道 - CSDN.NET_files/3_xukai871105.jpg" width="40" height="40"></a></dd><dd class="comment_body">回复vosamo007：应该使用 make hello-world.upload，请使用openocd连接目标版。不过我不确定，因为我没有cc2538开发版！</dd><dl class="comment_item comment_reply" id="comment_item_3761685"><dt class="comment_head" floor="1">Re: <span class="user"><a class="username" href="http://blog.csdn.net/vosamo007" target="_blank">vosamo007</a> <span class="ptime">2014-04-22 09:19发表</span>  <a href="http://blog.csdn.net/xukai871105/article/details/9204101#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="3761685" username="vosamo007"> <a href="http://blog.csdn.net/xukai871105/article/details/9204101#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/xukai871105/article/details/9204101#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/vosamo007" target="_blank"><img src="./Instant Contiki 安装笔记——SDCC和CC2530 - 物联网 IoT 经验分享小站 - 博客频道 - CSDN.NET_files/3_vosamo007.jpg" width="40" height="40"></a></dd><dd class="comment_body">回复xukai871105：我使用make hello-world.upload了，但是不能烧写。显示：TARGET not defined, using target 'native'  make: *** No rule to make target `hello-world.upload'.  Stop.</dd><dl class="comment_item comment_reply" id="comment_item_3763855"><dt class="comment_head" floor="1">Re: <span class="user"><a class="username" href="http://blog.csdn.net/xukai871105" target="_blank">xukai871105</a> <span class="ptime">2014-04-22 19:42发表</span>  <a href="http://blog.csdn.net/xukai871105/article/details/9204101#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="3763855" username="xukai871105"> <a href="http://blog.csdn.net/xukai871105/article/details/9204101#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/xukai871105/article/details/9204101#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/xukai871105" target="_blank"><img src="./Instant Contiki 安装笔记——SDCC和CC2530 - 物联网 IoT 经验分享小站 - 博客频道 - CSDN.NET_files/3_xukai871105.jpg" width="40" height="40"></a></dd><dd class="comment_body">回复vosamo007：请问make之后，目录下是否生成bin文件或者hex文件</dd><dl class="comment_item comment_reply" id="comment_item_3764217" style="margin-left:0;"><dt class="comment_head" floor="1">Re: <span class="user"><a class="username" href="http://blog.csdn.net/vosamo007" target="_blank">vosamo007</a> <span class="ptime">2014-04-22 21:31发表</span>  <a href="http://blog.csdn.net/xukai871105/article/details/9204101#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="3764217" username="vosamo007"> <a href="http://blog.csdn.net/xukai871105/article/details/9204101#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/xukai871105/article/details/9204101#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/vosamo007" target="_blank"><img src="./Instant Contiki 安装笔记——SDCC和CC2530 - 物联网 IoT 经验分享小站 - 博客频道 - CSDN.NET_files/3_vosamo007.jpg" width="40" height="40"></a></dd><dd class="comment_body">回复xukai871105：有生成hello-world.bin文件，还生成了hello-world.cc2538dk文件。我发现在contiki\platform\cc2538dk的README文件中有具体的在instant-contiki下操作的说明，但是我按照该说明做了，还是不行。我发现按照他说的把板子和虚拟机连接上之后，在/dev下面根本找不到ttyACMn（文件184-194行）。</dd><dl class="comment_item comment_reply" id="comment_item_3765749" style="margin-left:0;"><dt class="comment_head" floor="1">Re: <span class="user"><a class="username" href="http://blog.csdn.net/xukai871105" target="_blank">xukai871105</a> <span class="ptime">2014-04-23 12:38发表</span>  <a href="http://blog.csdn.net/xukai871105/article/details/9204101#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="3765749" username="xukai871105"> <a href="http://blog.csdn.net/xukai871105/article/details/9204101#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/xukai871105/article/details/9204101#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/xukai871105" target="_blank"><img src="./Instant Contiki 安装笔记——SDCC和CC2530 - 物联网 IoT 经验分享小站 - 博客频道 - CSDN.NET_files/3_xukai871105.jpg" width="40" height="40"></a></dd><dd class="comment_body">回复vosamo007：请尝试把bin文件复制到windows中的某个目录，然后使用jlink下载至目标板！</dd><dl class="comment_item comment_reply" id="comment_item_3789201" style="margin-left:0;"><dt class="comment_head" floor="1">Re: <span class="user"><a class="username" href="http://blog.csdn.net/vosamo007" target="_blank">vosamo007</a> <span class="ptime">2014-04-29 16:07发表</span>  <a href="http://blog.csdn.net/xukai871105/article/details/9204101#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="3789201" username="vosamo007"> <a href="http://blog.csdn.net/xukai871105/article/details/9204101#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/xukai871105/article/details/9204101#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/vosamo007" target="_blank"><img src="./Instant Contiki 安装笔记——SDCC和CC2530 - 物联网 IoT 经验分享小站 - 博客频道 - CSDN.NET_files/3_vosamo007.jpg" width="40" height="40"></a></dd><dd class="comment_body">回复xukai871105：我把Linux下编译生成的.elf文件转换成.hex文件，然后拷到windows，使用TI的smartRF Flash programmer烧写成功了，但是，这样无法跟踪调试啊。请问有什么办法在Linux下跟踪调试吗？</dd><dl class="comment_item comment_reply" id="comment_item_3790835" style="margin-left:0;"><dt class="comment_head" floor="1">Re: <span class="user"><a class="username" href="http://blog.csdn.net/xukai871105" target="_blank">xukai871105</a> <span class="ptime">2014-04-29 18:58发表</span>  <a href="http://blog.csdn.net/xukai871105/article/details/9204101#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="3790835" username="xukai871105"> <a href="http://blog.csdn.net/xukai871105/article/details/9204101#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/xukai871105/article/details/9204101#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/xukai871105" target="_blank"><img src="./Instant Contiki 安装笔记——SDCC和CC2530 - 物联网 IoT 经验分享小站 - 博客频道 - CSDN.NET_files/3_xukai871105.jpg" width="40" height="40"></a></dd><dd class="comment_body">回复vosamo007：你这样是无法跟踪调试的，其实linux下也没有更好的跟踪调试办法，GDB没有想象的那么好用。不过可以在程序运行的过程中使用printf打印结果，相当于打印日志。在线调试的方法的话，你需要移植到IAR 中。</dd><dl class="comment_item comment_reply" id="comment_item_3791591" style="margin-left:0;"><dt class="comment_head" floor="1">Re: <span class="user"><a class="username" href="http://blog.csdn.net/vosamo007" target="_blank">vosamo007</a> <span class="ptime">2014-04-29 19:59发表</span>  <a href="http://blog.csdn.net/xukai871105/article/details/9204101#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="3791591" username="vosamo007"> <a href="http://blog.csdn.net/xukai871105/article/details/9204101#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/xukai871105/article/details/9204101#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/vosamo007" target="_blank"><img src="./Instant Contiki 安装笔记——SDCC和CC2530 - 物联网 IoT 经验分享小站 - 博客频道 - CSDN.NET_files/3_vosamo007.jpg" width="40" height="40"></a></dd><dd class="comment_body">回复xukai871105：看来linux这条路也不好走啊</dd><dl class="comment_item comment_reply" id="comment_item_3793827" style="margin-left:0;"><dt class="comment_head" floor="1">Re: <span class="user"><a class="username" href="http://blog.csdn.net/xukai871105" target="_blank">xukai871105</a> <span class="ptime">2014-04-30 08:30发表</span>  <a href="http://blog.csdn.net/xukai871105/article/details/9204101#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="3793827" username="xukai871105"> <a href="http://blog.csdn.net/xukai871105/article/details/9204101#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/xukai871105/article/details/9204101#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/xukai871105" target="_blank"><img src="./Instant Contiki 安装笔记——SDCC和CC2530 - 物联网 IoT 经验分享小站 - 博客频道 - CSDN.NET_files/3_xukai871105.jpg" width="40" height="40"></a></dd><dd class="comment_body">回复vosamo007：linux这条路你现在不走以后也很可能会走，至少contiki让你接触了linux，其实是件好事。只是现在各位windows用的太多了，不想学新的东西罢了！</dd><dl class="comment_item comment_reply" id="comment_item_3794271" style="margin-left:0;"><dt class="comment_head" floor="1">Re: <span class="user"><a class="username" href="http://blog.csdn.net/vosamo007" target="_blank">vosamo007</a> <span class="ptime">2014-04-30 09:55发表</span>  <a href="http://blog.csdn.net/xukai871105/article/details/9204101#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="3794271" username="vosamo007"> <a href="http://blog.csdn.net/xukai871105/article/details/9204101#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/xukai871105/article/details/9204101#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/vosamo007" target="_blank"><img src="./Instant Contiki 安装笔记——SDCC和CC2530 - 物联网 IoT 经验分享小站 - 博客频道 - CSDN.NET_files/3_vosamo007.jpg" width="40" height="40"></a></dd><dd class="comment_body">回复xukai871105：的确是，windows的傻瓜式让人产生依赖了</dd></dl></dl></dl></dl></dl></dl></dl></dl></dl></dl></dl><dl class="comment_item comment_topic" id="comment_item_3042185"><dt class="comment_head" floor="3">3楼 <span class="user"><a class="username" href="http://blog.csdn.net/u011548191" target="_blank">塞利穆大叔</a> <span class="ptime">2013-10-29 14:20发表</span>  <a href="http://blog.csdn.net/xukai871105/article/details/9204101#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="3042185" username="u011548191"> <a href="http://blog.csdn.net/xukai871105/article/details/9204101#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/xukai871105/article/details/9204101#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/u011548191" target="_blank"><img src="./Instant Contiki 安装笔记——SDCC和CC2530 - 物联网 IoT 经验分享小站 - 博客频道 - CSDN.NET_files/3_u011548191.jpg" width="40" height="40"></a></dd><dd class="comment_body">徐凯同学，你是否还有这个SDCC 7100的版本了。网上找不到这个资源，我SVN也出问题了，使不了。能否邮寄我一份，谢谢。邮箱917860559@qq.com</dd></dl><dl class="comment_item comment_topic" id="comment_item_2831625"><dt class="comment_head" floor="2">2楼 <span class="user"><a class="username" href="http://blog.csdn.net/yu1234560000" target="_blank">yu1234560000</a> <span class="ptime">2013-08-16 18:12发表</span>  <a href="http://blog.csdn.net/xukai871105/article/details/9204101#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="2831625" username="yu1234560000"> <a href="http://blog.csdn.net/xukai871105/article/details/9204101#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/xukai871105/article/details/9204101#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/yu1234560000" target="_blank"><img src="./Instant Contiki 安装笔记——SDCC和CC2530 - 物联网 IoT 经验分享小站 - 博客频道 - CSDN.NET_files/3_yu1234560000.jpg" width="40" height="40"></a></dd><dd class="comment_body">非常感谢您的博客，帮助我们学习。</dd></dl><dl class="comment_item comment_topic" id="comment_item_2739605"><dt class="comment_head" floor="1">1楼 <span class="user"><a class="username" href="http://blog.csdn.net/kyo34080800" target="_blank">嵌入式的半瓶水</a> <span class="ptime">2013-07-19 09:09发表</span>  <a href="http://blog.csdn.net/xukai871105/article/details/9204101#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="2739605" username="kyo34080800"> <a href="http://blog.csdn.net/xukai871105/article/details/9204101#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/xukai871105/article/details/9204101#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/kyo34080800" target="_blank"><img src="./Instant Contiki 安装笔记——SDCC和CC2530 - 物联网 IoT 经验分享小站 - 博客频道 - CSDN.NET_files/3_kyo34080800.jpg" width="40" height="40"></a></dd><dd class="comment_body">支持一下徐凯同学，用了linux是不是不想在回到windows了。</dd><dl class="comment_item comment_reply" id="comment_item_2744501"><dt class="comment_head" floor="1">Re: <span class="user"><a class="username" href="http://blog.csdn.net/xukai871105" target="_blank">xukai871105</a> <span class="ptime">2013-07-21 10:43发表</span>  <a href="http://blog.csdn.net/xukai871105/article/details/9204101#reply" class="cmt_btn reply" title="回复">[回复]</a> <span class="comment_manage" style="display:none;" commentid="2744501" username="xukai871105"> <a href="http://blog.csdn.net/xukai871105/article/details/9204101#quote" class="cmt_btn quote" title="引用">[引用]</a> <a href="http://blog.csdn.net/xukai871105/article/details/9204101#report" class="cmt_btn report" title="举报">[举报]</a></span></span></dt><dd class="comment_userface"><a href="http://blog.csdn.net/xukai871105" target="_blank"><img src="./Instant Contiki 安装笔记——SDCC和CC2530 - 物联网 IoT 经验分享小站 - 博客频道 - CSDN.NET_files/3_xukai871105.jpg" width="40" height="40"></a></dd><dd class="comment_body">回复kyo34080800：存在这种可能性，windows下面调试或者简单说查找错误要方便一些。不过linux下eclipse平台+GCC也是非常方便。</dd></dl></dl><div class="clear"></div></div>
+    <div id="comment_bar" style="display: none;">
+    </div>
+    <div id="comment_form"><div class="guest_link">您还没有登录,请<a href="javascript:void(0);" onclick="javascript:csdn.showLogin(function (dat) {js_logined(dat.data.userName);});">[登录]</a>或<a href="http://passport.csdn.net/account/register?from=http%3A%2F%2Fblog.csdn.net%2Fxukai871105%2Farticle%2Fdetails%2F9204101">[注册]</a></div></div>
+
+    <div class="announce">
+        * 以上用户言论只代表其个人观点，不代表CSDN网站的观点或立场<a name="reply"></a><a name="quote"></a></div>
+</div>
+
+<script type="text/javascript">
+    var fileName = '9204101';
+    var commentscount = 18;
+    var islock = false
+</script>
+<script type="text/javascript" src="./Instant Contiki 安装笔记——SDCC和CC2530 - 物联网 IoT 经验分享小站 - 博客频道 - CSDN.NET_files/comment.js"></script>
+    <div id="ad_bot">
+    <iframe id="ad_frm_1" frameborder="0" scrolling="no" src="./Instant Contiki 安装笔记——SDCC和CC2530 - 物联网 IoT 经验分享小站 - 博客频道 - CSDN.NET_files/ad(1).htm" style="border-width: 0px; overflow: hidden; width: 984px; height: 0px;"></iframe></div>
+    <script type="text/javascript">
+    new Ad(5, 'ad_bot');
+    </script>
+<div id="report_dialog">
+</div>
+
+<div id="d-top" style="bottom:60px;">
+      
+
+       <a id="quick-reply" class="btn btn-top q-reply" title="快速回复" style="display:none;">
+            <img src="./Instant Contiki 安装笔记——SDCC和CC2530 - 物联网 IoT 经验分享小站 - 博客频道 - CSDN.NET_files/blog-icon-reply.png" alt="快速回复">
+        </a>    
+
+    <a id="d-top-a" class="btn btn-top backtop" style="display: none;" title="返回顶部" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_huidaodingbu&#39;])">         
+         <img src="./Instant Contiki 安装笔记——SDCC和CC2530 - 物联网 IoT 经验分享小站 - 博客频道 - CSDN.NET_files/top.png" alt="TOP">
+    </a>
+</div>
+<script type="text/javascript">
+    $(function ()
+    {
+        $("#ad_frm_0").height("90px");
+        
+        setTimeout(function(){
+            $("#ad_frm_2").height("200px");
+        },1000);
+        
+
+        if($("#comment_content").length>0)
+        {
+            $("#quick-reply").show();
+
+            $("#quick-reply").click(function(){
+                setEditorFocus();
+            });
+        }       
+     
+        var d_top = $('#d-top-a');
+        document.onscroll = function ()
+        {
+            var scrTop = (document.body.scrollTop || document.documentElement.scrollTop);
+            if (scrTop > 500)
+            {
+                d_top.show();
+            } else
+            {
+                d_top.hide();
+            }
+        }
+        $('#d-top-a').click(function ()
+        {
+            scrollTo(0, 0);
+            this.blur();
+            return false;
+        });
+    });
+  
+</script>
+<style type="text/css">
+    .tag_list
+    {
+        background: none repeat scroll 0 0 #FFFFFF;
+        border: 1px solid #D7CBC1;
+        color: #000000;
+        font-size: 12px;
+        line-height: 20px;
+        list-style: none outside none;
+        margin: 10px 2% 0 1%;
+        padding: 1px;
+    }
+    .tag_list h5
+    {
+        background: none repeat scroll 0 0 #E0DBD3;
+        color: #47381C;
+        font-size: 12px;
+        height: 24px;
+        line-height: 24px;
+        padding: 0 5px;
+        margin: 0;
+    }
+    .tag_list h5 a
+    {
+        color: #47381C;
+    }
+    .classify
+    {
+        margin: 10px 0;
+        padding: 4px 12px 8px;
+    }
+    .classify a
+    {
+        margin-right: 20px;
+        white-space: nowrap;
+    }
+</style>
+<div class="tag_list">
+    <h5>
+        <a href="http://www.csdn.net/tag/" target="_blank">核心技术类目</a></h5>
+    <div class="classify">
+<a title="全部主题" href="http://www.csdn.net/tag" target="_blank" onclick="LogClickCount(this,336);">全部主题</a>
+<a title="Hadoop" href="http://g.csdn.net/5272865" target="_blank" onclick="LogClickCount(this,336);">Hadoop</a>
+<a title="AWS" href="http://g.csdn.net/5272866" target="_blank" onclick="LogClickCount(this,336);">AWS</a>
+<a title="移动游戏" href="http://g.csdn.net/5272870" target="_blank" onclick="LogClickCount(this,336);">移动游戏</a>
+<a title="Java" href="http://g.csdn.net/5272871" target="_blank" onclick="LogClickCount(this,336);">Java</a>
+<a title="Android" href="http://g.csdn.net/5272872" target="_blank" onclick="LogClickCount(this,336);">Android</a>
+<a title="iOS" href="http://g.csdn.net/5272873" target="_blank" onclick="LogClickCount(this,336);">iOS</a>
+<a title="Swift" href="http://g.csdn.net/5272868" target="_blank" onclick="LogClickCount(this,336);">Swift</a>
+<a title="智能硬件" href="http://g.csdn.net/5272869" target="_blank" onclick="LogClickCount(this,336);">智能硬件</a>
+<a title="Docker" href="http://g.csdn.net/5272867" target="_blank" onclick="LogClickCount(this,336);">Docker</a>
+<a title="OpenStack" href="http://g.csdn.net/5272925" target="_blank" onclick="LogClickCount(this,336);">OpenStack</a>
+<a title="VPN" href="http://www.csdn.net/tag/vpn" target="_blank" onclick="LogClickCount(this,336);">VPN</a>
+<a title="Spark" href="http://g.csdn.net/5272924" target="_blank" onclick="LogClickCount(this,336);">Spark</a>
+<a title="ERP" href="http://www.csdn.net/tag/erp" target="_blank" onclick="LogClickCount(this,336);">ERP</a>
+<a title="IE10" href="http://www.csdn.net/tag/ie10" target="_blank" onclick="LogClickCount(this,336);">IE10</a>
+<a title="Eclipse" href="http://www.csdn.net/tag/eclipse" target="_blank" onclick="LogClickCount(this,336);">Eclipse</a>
+<a title="CRM" href="http://www.csdn.net/tag/crm" target="_blank" onclick="LogClickCount(this,336);">CRM</a>
+<a title="JavaScript" href="http://www.csdn.net/tag/javascript" target="_blank" onclick="LogClickCount(this,336);">JavaScript</a>
+<a title="数据库" href="http://www.csdn.net/tag/%E6%95%B0%E6%8D%AE%E5%BA%93" target="_blank" onclick="LogClickCount(this,336);">数据库</a>
+<a title="Ubuntu" href="http://www.csdn.net/tag/ubuntu" target="_blank" onclick="LogClickCount(this,336);">Ubuntu</a>
+<a title="NFC" href="http://www.csdn.net/tag/nfc" target="_blank" onclick="LogClickCount(this,336);">NFC</a>
+<a title="WAP" href="http://www.csdn.net/tag/wap" target="_blank" onclick="LogClickCount(this,336);">WAP</a>
+<a title="jQuery" href="http://www.csdn.net/tag/jquery" target="_blank" onclick="LogClickCount(this,336);">jQuery</a>
+<a title="BI" href="http://www.csdn.net/tag/bi" target="_blank" onclick="LogClickCount(this,336);">BI</a>
+<a title="HTML5" href="http://www.csdn.net/tag/html5" target="_blank" onclick="LogClickCount(this,336);">HTML5</a>
+<a title="Spring" href="http://www.csdn.net/tag/spring" target="_blank" onclick="LogClickCount(this,336);">Spring</a>
+<a title="Apache" href="http://www.csdn.net/tag/apache" target="_blank" onclick="LogClickCount(this,336);">Apache</a>
+<a title=".NET" href="http://www.csdn.net/tag/.net" target="_blank" onclick="LogClickCount(this,336);">.NET</a>
+<a title="API" href="http://www.csdn.net/tag/api" target="_blank" onclick="LogClickCount(this,336);">API</a>
+<a title="HTML" href="http://www.csdn.net/tag/html" target="_blank" onclick="LogClickCount(this,336);">HTML</a>
+<a title="SDK" href="http://www.csdn.net/tag/sdk" target="_blank" onclick="LogClickCount(this,336);">SDK</a>
+<a title="IIS" href="http://www.csdn.net/tag/iis" target="_blank" onclick="LogClickCount(this,336);">IIS</a>
+<a title="Fedora" href="http://www.csdn.net/tag/fedora" target="_blank" onclick="LogClickCount(this,336);">Fedora</a>
+<a title="XML" href="http://www.csdn.net/tag/xml" target="_blank" onclick="LogClickCount(this,336);">XML</a>
+<a title="LBS" href="http://www.csdn.net/tag/lbs" target="_blank" onclick="LogClickCount(this,336);">LBS</a>
+<a title="Unity" href="http://www.csdn.net/tag/unity" target="_blank" onclick="LogClickCount(this,336);">Unity</a>
+<a title="Splashtop" href="http://www.csdn.net/tag/splashtop" target="_blank" onclick="LogClickCount(this,336);">Splashtop</a>
+<a title="UML" href="http://www.csdn.net/tag/uml" target="_blank" onclick="LogClickCount(this,336);">UML</a>
+<a title="components" href="http://www.csdn.net/tag/components" target="_blank" onclick="LogClickCount(this,336);">components</a>
+<a title="Windows Mobile" href="http://www.csdn.net/tag/windowsmobile" target="_blank" onclick="LogClickCount(this,336);">Windows Mobile</a>
+<a title="Rails" href="http://www.csdn.net/tag/rails" target="_blank" onclick="LogClickCount(this,336);">Rails</a>
+<a title="QEMU" href="http://www.csdn.net/tag/qemu" target="_blank" onclick="LogClickCount(this,336);">QEMU</a>
+<a title="KDE" href="http://www.csdn.net/tag/kde" target="_blank" onclick="LogClickCount(this,336);">KDE</a>
+<a title="Cassandra" href="http://www.csdn.net/tag/cassandra" target="_blank" onclick="LogClickCount(this,336);">Cassandra</a>
+<a title="CloudStack" href="http://www.csdn.net/tag/cloudstack" target="_blank" onclick="LogClickCount(this,336);">CloudStack</a>
+<a title="FTC" href="http://www.csdn.net/tag/ftc" target="_blank" onclick="LogClickCount(this,336);">FTC</a>
+<a title="coremail" href="http://www.csdn.net/tag/coremail" target="_blank" onclick="LogClickCount(this,336);">coremail</a>
+<a title="OPhone " href="http://www.csdn.net/tag/ophone" target="_blank" onclick="LogClickCount(this,336);">OPhone </a>
+<a title="CouchBase" href="http://www.csdn.net/tag/couchbase" target="_blank" onclick="LogClickCount(this,336);">CouchBase</a>
+<a title="云计算" href="http://www.csdn.net/tag/%E4%BA%91%E8%AE%A1%E7%AE%97" target="_blank" onclick="LogClickCount(this,336);">云计算</a>
+<a title="iOS6" href="http://www.csdn.net/tag/iOS6" target="_blank" onclick="LogClickCount(this,336);">iOS6</a>
+<a title="Rackspace " href="http://www.csdn.net/tag/rackspace" target="_blank" onclick="LogClickCount(this,336);">Rackspace </a>
+<a title="Web App" href="http://www.csdn.net/tag/webapp" target="_blank" onclick="LogClickCount(this,336);">Web App</a>
+<a title="SpringSide" href="http://www.csdn.net/tag/springside" target="_blank" onclick="LogClickCount(this,336);">SpringSide</a>
+<a title="Maemo" href="http://www.csdn.net/tag/maemo" target="_blank" onclick="LogClickCount(this,336);">Maemo</a>
+<a title="Compuware" href="http://www.csdn.net/tag/compuware" target="_blank" onclick="LogClickCount(this,336);">Compuware</a>
+<a title="大数据" href="http://www.csdn.net/tag/%E5%A4%A7%E6%95%B0%E6%8D%AE" target="_blank" onclick="LogClickCount(this,336);">大数据</a>
+<a title="aptech" href="http://www.csdn.net/tag/aptech" target="_blank" onclick="LogClickCount(this,336);">aptech</a>
+<a title="Perl" href="http://www.csdn.net/tag/perl" target="_blank" onclick="LogClickCount(this,336);">Perl</a>
+<a title="Tornado" href="http://www.csdn.net/tag/tornado" target="_blank" onclick="LogClickCount(this,336);">Tornado</a>
+<a title="Ruby" href="http://www.csdn.net/tag/ruby" target="_blank" onclick="LogClickCount(this,336);">Ruby</a>
+<a title="Hibernate" href="http://www.csdn.net/hibernate" target="_blank" onclick="LogClickCount(this,336);">Hibernate</a>
+<a title="ThinkPHP" href="http://www.csdn.net/tag/thinkphp" target="_blank" onclick="LogClickCount(this,336);">ThinkPHP</a>
+<a title="HBase" href="http://www.csdn.net/tag/hbase" target="_blank" onclick="LogClickCount(this,336);">HBase</a>
+<a title="Pure" href="http://www.csdn.net/tag/pure" target="_blank" onclick="LogClickCount(this,336);">Pure</a>
+<a title="Solr" href="http://www.csdn.net/tag/solr" target="_blank" onclick="LogClickCount(this,336);">Solr</a>
+<a title="Angular" href="http://www.csdn.net/tag/angular" target="_blank" onclick="LogClickCount(this,336);">Angular</a>
+<a title="Cloud Foundry" href="http://www.csdn.net/tag/cloudfoundry" target="_blank" onclick="LogClickCount(this,336);">Cloud Foundry</a>
+<a title="Redis" href="http://www.csdn.net/tag/redis" target="_blank" onclick="LogClickCount(this,336);">Redis</a>
+<a title="Scala" href="http://www.csdn.net/tag/scala" target="_blank" onclick="LogClickCount(this,336);">Scala</a>
+<a title="Django" href="http://www.csdn.net/tag/django" target="_blank" onclick="LogClickCount(this,336);">Django</a>
+<a title="Bootstrap" href="http://www.csdn.net/tag/bootstrap" target="_blank" onclick="LogClickCount(this,336);">Bootstrap</a>
+    </div>
+</div>
+
+
+                        <div class="clear">
+                        </div>
+                    </div>                   
+                
+            </div>
+            <div id="side">
+    <div class="side">
+<div id="panel_Profile" class="panel">
+<ul class="panel_head"><span>个人资料</span></ul>
+<ul class="panel_body profile">
+<div id="blog_userface">
+    <a href="http://my.csdn.net/xukai871105" target="_blank">
+    <img src="./Instant Contiki 安装笔记——SDCC和CC2530 - 物联网 IoT 经验分享小站 - 博客频道 - CSDN.NET_files/1_xukai871105.jpg" title="访问我的空间" style="max-width:90%">
+    </a>
+    <br>
+    <span><a href="http://my.csdn.net/xukai871105" class="user_name" target="_blank">xukai871105</a></span>
+</div>
+<div class="interact">
+<a href="javascript:void(0);" class="attent" id="span_add_follow" title="[加关注]" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_guanzhu&#39;])"></a>
+
+ <a href="javascript:void(0);" class="letter" title="[发私信]" onclick="window.open(&#39;http://msg.csdn.net/letters/model?receiver=xukai871105&#39;,&#39;_blank&#39;,&#39;height=350,width=700&#39;);_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_sixin&#39;])"></a>  
+</div>
+<div id="blog_medal">
+        <div class="ico_expert" title="CSDN认证专家"></div>
+<div id="bms_box"><a href="http://medal.blog.csdn.net/allmedal.aspx" target="_blank"><img src="./Instant Contiki 安装笔记——SDCC和CC2530 - 物联网 IoT 经验分享小站 - 博客频道 - CSDN.NET_files/holdon_s.gif" onmouseover="m_over_m(this,0)" onmouseout="m_out_m()" alt=""></a></div></div>
+<ul id="blog_rank">
+    <li>访问：<span>280259次</span></li>
+    <li>积分：<span>4873分</span></li>
+    <li>排名：<span>第1677名</span></li>
+</ul>
+<ul id="blog_statistics">
+    <li>原创：<span>173篇</span></li>
+    <li>转载：<span>2篇</span></li>
+    <li>译文：<span>4篇</span></li>
+    <li>评论：<span>567条</span></li>
+</ul>
+</ul>
+</div>
+
+
+<div class="panel" id="panel_Search">
+    <ul class="panel_head"><span>文章搜索</span></ul>
+    <ul class="panel_body">
+        <form id="frmSearch" action="http://so.csdn.net/search" class="form_search" target="_blank">
+        <span><input id="inputSearch" type="text" class="blogsearch" title="请输入关键字"></span>
+        <input id="btnSubmit" type="button" value="搜索" title="search in blog">
+        <input type="hidden" name="q" id="inputQ">
+        <input type="hidden" name="t" value="blog">
+        <a id="btnSearchBlog" target="_blank"></a>
+        </form>
+    </ul>
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        $("#btnSubmit").click(function () {           
+            search();
+        });
+
+        $("#frmSearch").submit(function () {
+            search();
+            return false;
+        });
+
+        function search()
+        {
+            var url = "http://so.csdn.net/so/search/s.do?q=" + encodeURIComponent($("#inputSearch").val()) + "&u=" + username + "&t=blog";
+            window.location.href = url;
+        }   
+    });
+</script><div id="custom_column_36582115" class="panel">
+<ul class="panel_head"><span>联系方式</span></ul>
+<ul class="panel_body">
+
+E-mail：xukai19871105@126.com
+
+</ul>
+</div><div id="panel_Category" class="panel">
+<ul class="panel_head"><span>文章分类</span></ul>
+<ul class="panel_body">
+             <li>
+                <a href="http://blog.csdn.net/xukai871105/article/category/1436049" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">树莓派</a><span>(34)</span>
+            </li>
+             <li>
+                <a href="http://blog.csdn.net/xukai871105/article/category/2110745" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">物联网学习笔记</a><span>(34)</span>
+            </li>
+             <li>
+                <a href="http://blog.csdn.net/xukai871105/article/category/1129569" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">Contiki</a><span>(11)</span>
+            </li>
+             <li>
+                <a href="http://blog.csdn.net/xukai871105/article/category/2259571" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">Linux学习笔记</a><span>(22)</span>
+            </li>
+             <li>
+                <a href="http://blog.csdn.net/xukai871105/article/category/1875599" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">PHP/Python/前端</a><span>(21)</span>
+            </li>
+             <li>
+                <a href="http://blog.csdn.net/xukai871105/article/category/1350154" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">嵌入式ARM</a><span>(22)</span>
+            </li>
+             <li>
+                <a href="http://blog.csdn.net/xukai871105/article/category/1438273" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">单片机</a><span>(26)</span>
+            </li>
+             <li>
+                <a href="http://blog.csdn.net/xukai871105/article/category/789390" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">C/C++/C#</a><span>(4)</span>
+            </li>
+             <li>
+                <a href="http://blog.csdn.net/xukai871105/article/category/1713069" onclick="_gaq.push([&#39;_trackEvent&#39;,&#39;function&#39;, &#39;onclick&#39;, &#39;blog_articles_wenzhangfenlei&#39;]); ">个人计划/个人随笔</a><span>(5)</span>
+            </li>
+</ul>
+</div><div id="panel_Archive" class="panel">
+<ul class="panel_head"><span>文章存档</span></ul>
+<ul class="panel_body">
+<div id="archive_list"><li><a href="http://blog.csdn.net/xukai871105/article/month/2014/10">2014年10月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/xukai871105/article/month/2014/09">2014年09月</a><span>(7)</span></li><li><a href="http://blog.csdn.net/xukai871105/article/month/2014/08">2014年08月</a><span>(16)</span></li><li><a href="http://blog.csdn.net/xukai871105/article/month/2014/07">2014年07月</a><span>(17)</span></li><li><a href="http://blog.csdn.net/xukai871105/article/month/2014/06">2014年06月</a><span>(14)</span></li><span class="hidelist" style="display:none;"><li><a href="http://blog.csdn.net/xukai871105/article/month/2014/05">2014年05月</a><span>(5)</span></li><li><a href="http://blog.csdn.net/xukai871105/article/month/2014/04">2014年04月</a><span>(13)</span></li><li><a href="http://blog.csdn.net/xukai871105/article/month/2014/03">2014年03月</a><span>(9)</span></li><li><a href="http://blog.csdn.net/xukai871105/article/month/2014/02">2014年02月</a><span>(4)</span></li><li><a href="http://blog.csdn.net/xukai871105/article/month/2014/01">2014年01月</a><span>(15)</span></li><li><a href="http://blog.csdn.net/xukai871105/article/month/2013/12">2013年12月</a><span>(11)</span></li><li><a href="http://blog.csdn.net/xukai871105/article/month/2013/11">2013年11月</a><span>(13)</span></li><li><a href="http://blog.csdn.net/xukai871105/article/month/2013/10">2013年10月</a><span>(12)</span></li><li><a href="http://blog.csdn.net/xukai871105/article/month/2013/09">2013年09月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/xukai871105/article/month/2013/08">2013年08月</a><span>(3)</span></li><li><a href="http://blog.csdn.net/xukai871105/article/month/2013/07">2013年07月</a><span>(2)</span></li><li><a href="http://blog.csdn.net/xukai871105/article/month/2013/06">2013年06月</a><span>(21)</span></li><li><a href="http://blog.csdn.net/xukai871105/article/month/2013/05">2013年05月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/xukai871105/article/month/2013/02">2013年02月</a><span>(4)</span></li><li><a href="http://blog.csdn.net/xukai871105/article/month/2013/01">2013年01月</a><span>(2)</span></li><li><a href="http://blog.csdn.net/xukai871105/article/month/2012/04">2012年04月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/xukai871105/article/month/2012/03">2012年03月</a><span>(5)</span></li><li><a href="http://blog.csdn.net/xukai871105/article/month/2012/02">2012年02月</a><span>(2)</span></li><li><a href="http://blog.csdn.net/xukai871105/article/month/2011/02">2011年02月</a><span>(1)</span></li></span><div id="archive_list_button" class="list_closed">展开</div></div>
+</ul>
+</div>
+<div id="hotarticls" class="panel">
+<ul class="panel_head">
+    <span>       
+阅读排行    </span>
+</ul>
+
+<ul class="panel_body itemlist">
+<li>
+<a href="http://blog.csdn.net/xukai871105/article/details/12684617" title="树莓派学习笔记——GPIO功能学习">树莓派学习笔记——GPIO功能学习</a><span>(14086)</span>
+</li>
+<li>
+<a href="./Instant Contiki 安装笔记——SDCC和CC2530 - 物联网 IoT 经验分享小站 - 博客频道 - CSDN.NET_files/Instant Contiki 安装笔记——SDCC和CC2530 - 物联网 IoT 经验分享小站 - 博客频道 - CSDN.NET.htm" title="Instant Contiki 安装笔记——SDCC和CC2530">Instant Contiki 安装笔记——SDCC和CC2530</a><span>(6784)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/xukai871105/article/details/17881433" title="树莓派学习笔记——wiringPi GPIO使用详解">树莓派学习笔记——wiringPi GPIO使用详解</a><span>(6418)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/xukai871105/article/details/9897695" title="CC2530 RF部分使用 ——实现点对点收发">CC2530 RF部分使用 ——实现点对点收发</a><span>(6347)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/xukai871105/article/details/17737005" title="树莓派学习笔记——wiringPi简介、安装和管脚说明">树莓派学习笔记——wiringPi简介、安装和管脚说明</a><span>(5936)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/xukai871105/article/details/13156977" title="FreeRTOS STM32移植笔记">FreeRTOS STM32移植笔记</a><span>(5684)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/xukai871105/article/details/7482858" title="contiki STM32移植">contiki STM32移植</a><span>(4310)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/xukai871105/article/details/14109211" title="树莓派学习笔记——I2C PCF8574 BCM2835 Library">树莓派学习笔记——I2C PCF8574 BCM2835 Library</a><span>(4132)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/xukai871105/article/details/8607338" title="Yeelink Http请求格式分析">Yeelink Http请求格式分析</a><span>(4108)</span>
+</li>
+<li>
+<a href="http://blog.csdn.net/xukai871105/article/details/9003612" title="树莓派学前班——设置屏幕分辩率">树莓派学前班——设置屏幕分辩率</a><span>(3866)</span>
+</li>
+</ul>
+</div>
+<div id="newcomments" class="panel">
+<ul class="panel_head"><span>最新评论</span></ul>
+<ul class="panel_body itemlist">
+    <li>
+   
+         <a href="http://blog.csdn.net/xukai871105/article/details/17737005#comments">树莓派学习笔记——wiringPi简介、安装和管脚说明</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/xukai871105" class="user_name">xukai871105</a>:
+@yangguangheike:我肯定这两个不是一个问题
+    </p>
+    </li>
+    <li>
+   
+         <a href="http://blog.csdn.net/xukai871105/article/details/17737005#comments">树莓派学习笔记——wiringPi简介、安装和管脚说明</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/yangguangheike" class="user_name">yangguangheike</a>:
+您好！我是刚开始，安装gpio输入命令“ sudo apt-get install python-r...
+    </p>
+    </li>
+    <li>
+   
+         <a href="http://blog.csdn.net/xukai871105/article/details/8607338#comments">Yeelink Http请求格式分析</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/like_study" class="user_name">放慢脚步是为了加速</a>:
+@xukai871105:前几天到群里面找到了答案，yeelink平台就是使用MQTT服务器来做消息...
+    </p>
+    </li>
+    <li>
+   
+         <a href="http://blog.csdn.net/xukai871105/article/details/8607338#comments">Yeelink Http请求格式分析</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/xukai871105" class="user_name">xukai871105</a>:
+@like_study:这样回答你，如果是REST结构也就是博文中分析的格式，yeelink是无法主...
+    </p>
+    </li>
+    <li>
+   
+         <a href="http://blog.csdn.net/xukai871105/article/details/8607338#comments">Yeelink Http请求格式分析</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/like_study" class="user_name">放慢脚步是为了加速</a>:
+yeelink是如何将开关状态信息发送到执行器的，执行器是不是也需要跑一个服务器监听程序
+    </p>
+    </li>
+    <li>
+   
+         <a href="http://blog.csdn.net/xukai871105/article/details/39892317#comments">2013年到2014年学习计划及总结</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/xukai871105" class="user_name">xukai871105</a>:
+@u011484015:调整一下努力的方向。
+    </p>
+    </li>
+    <li>
+   
+         <a href="http://blog.csdn.net/xukai871105/article/details/39892317#comments">2013年到2014年学习计划及总结</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/sudazzj" class="user_name">sudazzj</a>:
+很有条理，赞一个
+    </p>
+    </li>
+    <li>
+   
+         <a href="http://blog.csdn.net/xukai871105/article/details/39892317#comments">2013年到2014年学习计划及总结</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/u011484015" class="user_name">仙人球_zZ</a>:
+加油！看到这个计划表倍感亲切，我跟着你的脚步也进步了不少，继续努力！
+    </p>
+    </li>
+    <li>
+   
+         <a href="http://blog.csdn.net/xukai871105/article/details/22959675#comments">树莓派学习笔记——webiopi网页控制LED</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/xukai871105" class="user_name">xukai871105</a>:
+@sfq_1:http://blog.csdn.net/xukai871105/article/de...
+    </p>
+    </li>
+    <li>
+   
+         <a href="http://blog.csdn.net/xukai871105/article/details/22959675#comments">树莓派学习笔记——webiopi网页控制LED</a>
+    <p style="margin:0px;"><a href="http://blog.csdn.net/sfq_1" class="user_name">sfq_1</a>:
+博主， config文件中，请修改    doc-root = /home/pi/webiopi_w...
+    </p>
+    </li>
+</ul>
+</div>
+    </div>
+    <div class="clear">
+    </div>
+</div>
+
+            <div class="clear">
+            </div>
+        </div>
+        
+
+<script type="text/javascript" src="./Instant Contiki 安装笔记——SDCC和CC2530 - 物联网 IoT 经验分享小站 - 博客频道 - CSDN.NET_files/cnick.js"></script>
+<script type="text/javascript" src="./Instant Contiki 安装笔记——SDCC和CC2530 - 物联网 IoT 经验分享小站 - 博客频道 - CSDN.NET_files/newblog.min.js"></script>
+
+
+<script type="text/javascript" src="./Instant Contiki 安装笔记——SDCC和CC2530 - 物联网 IoT 经验分享小站 - 博客频道 - CSDN.NET_files/showblogmedal.ashx"></script>
+<script type="text/javascript">
+    document.write('<script type="text/javascript" src="http://csdnimg.cn/pubfooter/js/publib_footer.js?' + Math.floor(new Date() / 120000).toString(36) + '="></' + 'script>');
+</script><script type="text/javascript" src="./Instant Contiki 安装笔记——SDCC和CC2530 - 物联网 IoT 经验分享小站 - 博客频道 - CSDN.NET_files/publib_footer.js"></script><link rel="stylesheet" type="text/css" href="./Instant Contiki 安装笔记——SDCC和CC2530 - 物联网 IoT 经验分享小站 - 博客频道 - CSDN.NET_files/pub_footer_2012.css"><div id="pub_footerall" class="pub_footerall"><dl><dt></dt> <dd><a href="http://www.csdn.net/company/about.html" target="_blank">公司简介</a>|<a href="http://www.csdn.net/company/recruit.html" target="_blank">招贤纳士</a>|<a href="http://www.csdn.net/company/marketing.html" target="_blank">广告服务</a>|<a href="http://www.csdn.net/company/account.html" target="_blank">银行汇款帐号</a>|<a href="http://www.csdn.net/company/contact.html" target="_blank">联系方式</a>|<a href="http://www.csdn.net/company/statement.html" target="_blank">版权声明</a>|<a href="http://www.csdn.net/company/layer.html" target="_blank">法律顾问</a>|<a href="mailto:webmaster@csdn.net">问题报告</a>|<a target="_blank" href="http://www.csdn.net/friendlink.html">合作伙伴</a>|<a href="http://bbs.csdn.net/forums/Service" target="_blank">论坛反馈</a></dd><dd><a href="http://wpa.qq.com/msgrd?v=3&uin=2355263776&site=qq&menu=yes" target="_blank" class="qq">网站客服</a> <a href="http://wpa.qq.com/msgrd?v=3&uin=2251809102&site=qq&menu=yes" target="_blank" class="qq">杂志客服</a> <a href="http://e.weibo.com/csdnsupport/profile" target="_blank" class="weibo">微博客服</a> <a href="mailto:webmaster@csdn.net" class="email" title="联系邮箱">webmaster@csdn.net</a> <span class="phone" title="服务热线">400-600-2320</span></dd><dd>京&nbsp;ICP&nbsp;证&nbsp;070598&nbsp;号</dd><dd>北京创新乐知信息技术有限公司 版权所有</dd><dd>江苏乐知网络技术有限公司 提供商务支持</dd><dd>Copyright © 1999-2014, CSDN.NET, All Rights Reserved&nbsp;<a href="http://www.hd315.gov.cn/beian/view.asp?bianhao=010202001032100010" target="_blank"><img src="./Instant Contiki 安装笔记——SDCC和CC2530 - 物联网 IoT 经验分享小站 - 博客频道 - CSDN.NET_files/gongshang_logos.gif" alt="GongshangLogo" title=""></a></dd></dl></div><div id="note1" class="csdn_note" style="display:none; position:absolute; z-index:9999; width:440px">  <span class="notice_top_arrow"><span class="inner"></span></span>  <div class="box"></div></div><div class="csdn_notice_tip" style="display: none; position: absolute; z-index: 9990; width: 170px;">  <iframe src="about:blank" frameborder="0" scrolling="no" style="z-index:-1;position:absolute;top:0;left:0;width:100%;height:100%;background:transparent"></iframe>  <div class="tip_text">您有<strong>0</strong>条新通知</div>  <a href="javascript:void 0" class="close2"></a></div><script id="noticeScript" type="text/javascript" btnid="header_notice_num" wrapid="note1" count="5" subcount="5" src="./Instant Contiki 安装笔记——SDCC和CC2530 - 物联网 IoT 经验分享小站 - 博客频道 - CSDN.NET_files/notify.js"></script>
+    <script type="text/javascript" src="./Instant Contiki 安装笔记——SDCC和CC2530 - 物联网 IoT 经验分享小站 - 博客频道 - CSDN.NET_files/login.js"></script>
+    <script type="text/javascript" src="./Instant Contiki 安装笔记——SDCC和CC2530 - 物联网 IoT 经验分享小站 - 博客频道 - CSDN.NET_files/tongji.js"></script><img src="./Instant Contiki 安装笔记——SDCC和CC2530 - 物联网 IoT 经验分享小站 - 博客频道 - CSDN.NET_files/tongji.do" border="0" width="1" height="1"><a href="http://tongji.linezing.com/report.html?unit_id=3520372" target="_blank"><img src="./Instant Contiki 安装笔记——SDCC和CC2530 - 物联网 IoT 经验分享小站 - 博客频道 - CSDN.NET_files/stats.gif" border="0" alt="量子统计"></a>
+<script type="text/javascript">document.write("<img src=http://counter.csdn.net/pv.aspx?id=24 border=0 width=0 height=0>");</script><img src="./Instant Contiki 安装笔记——SDCC和CC2530 - 物联网 IoT 经验分享小站 - 博客频道 - CSDN.NET_files/pv.aspx" border="0" width="0" height="0">
+<script type="text/javascript" src="./Instant Contiki 安装笔记——SDCC和CC2530 - 物联网 IoT 经验分享小站 - 博客频道 - CSDN.NET_files/counter.js"></script><script type="text/javascript" charset="UTF-8" src="./Instant Contiki 安装笔记——SDCC和CC2530 - 物联网 IoT 经验分享小站 - 博客频道 - CSDN.NET_files/msg.popup.js"></script>
+<script type="text/javascript" src="./Instant Contiki 安装笔记——SDCC和CC2530 - 物联网 IoT 经验分享小站 - 博客频道 - CSDN.NET_files/ad-blog.js"></script><script type="text/javascript" src="./Instant Contiki 安装笔记——SDCC和CC2530 - 物联网 IoT 经验分享小站 - 博客频道 - CSDN.NET_files/ad-js1020.js"></script>
+<script type="text/javascript" src="./Instant Contiki 安装笔记——SDCC和CC2530 - 物联网 IoT 经验分享小站 - 博客频道 - CSDN.NET_files/ad-ms1023_2.js"></script>
+<script type="text/javascript" src="./Instant Contiki 安装笔记——SDCC和CC2530 - 物联网 IoT 经验分享小站 - 博客频道 - CSDN.NET_files/ad-ms1026_3.js"></script>
+
+<script type="text/javascript" src="./Instant Contiki 安装笔记——SDCC和CC2530 - 物联网 IoT 经验分享小站 - 博客频道 - CSDN.NET_files/count.js"></script><iframe src="./Instant Contiki 安装笔记——SDCC和CC2530 - 物联网 IoT 经验分享小站 - 博客频道 - CSDN.NET_files/logs.htm" frameborder="0" width="0" height="0"></iframe>
+<script type="text/javascript">
+    $(function () {
+        function __get_code_toolbar(snippet_id) {
+            return $("<a href='https://code.csdn.net/snippets/"
+                    + snippet_id
+                    + "' target='_blank' title='在CODE上查看代码片' style='text-indent:0;'><img src='https://code.csdn.net/assets/CODE_ico.png' width=12 height=12 alt='在CODE上查看代码片' style='position:relative;top:1px;left:2px;'/></a>"
+                    + "<a href='https://code.csdn.net/snippets/"
+                    + snippet_id
+                    + "/fork' target='_blank' title='派生到我的代码片'  style='text-indent:0;'><img src='https://code.csdn.net/assets/ico_fork.svg' width=12 height=12 alt='派生到我的代码片' style='position:relative;top:2px;left:2px;'/></a>");
+        }
+        
+        $("[code_snippet_id]").each(function () {
+            __s_id = $(this).attr("code_snippet_id");
+            if (__s_id != null && __s_id != "" && __s_id != 0 && parseInt(__s_id) > 70020) {
+                __code_tool = __get_code_toolbar(__s_id);
+                $(this).prev().find(".tools").append(__code_tool);
+            }
+        });
+    });
+</script>
+
+    </div>
+      <!--new top-->
+    
+    <script id="csdn-toolbar-id" btnid="header_notice_num" wrapid="note1" count="5" subcount="5" type="text/javascript" src="./Instant Contiki 安装笔记——SDCC和CC2530 - 物联网 IoT 经验分享小站 - 博客频道 - CSDN.NET_files/toolbar.js"></script>
+     <!--new top-->
+
+
+<div id="tag-suggest-pop">
+  <div class="relative">
+    <div class="close"></div>
+    <div class="content"></div>
+  </div>
+</div><iframe src="./Instant Contiki 安装笔记——SDCC和CC2530 - 物联网 IoT 经验分享小站 - 博客频道 - CSDN.NET_files/1020.htm" style="width: 1px; height: 1px; position: absolute; visibility: hidden;"></iframe><iframe src="./Instant Contiki 安装笔记——SDCC和CC2530 - 物联网 IoT 经验分享小站 - 博客频道 - CSDN.NET_files/hp-fy14-q4-cloud-daohangtiaoxia-banner-peisong-960-90-30k.htm" style="width: 1px; height: 1px; position: absolute; visibility: hidden;"></iframe><link href="./Instant Contiki 安装笔记——SDCC和CC2530 - 物联网 IoT 经验分享小站 - 博客频道 - CSDN.NET_files/message_pop.css" rel="stylesheet" type="text/css"><div id="_popup_msg_container" style="display: block;">
+
+<div wistate="max" id="im_popupWindow_miniMsg" class="im_popupWindow" style="display: block; height: 250px;">
+	<h6 class="wi_draggable"><span>
+</span><a onclick="_message_tips_pop(&#39;down&#39;);return false;"><img alt="close" class="founctionpic3" src="./Instant Contiki 安装笔记——SDCC和CC2530 - 物联网 IoT 经验分享小站 - 博客频道 - CSDN.NET_files/pic_close.gif"></a></h6>
+    <div id="im_popupWindow_miniMsgContent" class="wi_content">
+		<div class="kuai">
+			<div style="width:280px;"><a href="http://huiyi.csdn.net/activity/product/goods_list?project_id=1273" target="_blank"><img src="./Instant Contiki 安装笔记——SDCC和CC2530 - 物联网 IoT 经验分享小站 - 博客频道 - CSDN.NET_files/WEI_IM_10.13.jpg" alt="" border="0" style="border:0;" title=""></a></div>
+		</div>
+	</div>
+<div class="content_qq"><span onclick="window.open(&#39;&#39;)" target="_blank"><font color="red">
+</font></span>
+ </div>
+ 
+ 
+</div>
+</div><img src="./Instant Contiki 安装笔记——SDCC和CC2530 - 物联网 IoT 经验分享小站 - 博客频道 - CSDN.NET_files/count_new.php" style="display: none;"></body></html>

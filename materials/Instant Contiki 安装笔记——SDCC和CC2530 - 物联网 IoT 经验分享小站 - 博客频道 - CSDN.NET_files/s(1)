@@ -1,0 +1,13 @@
+ADFHOST1174="http://csdnim.allyes.com";
+ADFCID1174=40;
+ADFBID1174=1174;
+ADFLOC='CNGZGY00';
+ADFUSER1174="http://csdnim.allyes.com/main/adfclick?d=csdnim&i=z40,10054430,1174,1958&rf=&a=dvAgDdYAe0BTexoD6PoWaqEa6&u=";
+ALLYESID4="073A5C237B93A1ED";
+ADFPGC="2,10,40,0,773,1174,1958,10054430";
+
+document.write("<script src=\"http://bsch.serving-sys.com/BurstingPipe/adServer.bs?cn=rsb&c=28&pli=10759689&PluID=56&w=960&h=90&ord=[timestamp]&ucm=true\"></Scr"+"ipt>\n");
+document.write("<noscript>\n");
+document.write("<a href=\"http://bsch.serving-sys.com/BurstingPipe/adServer.bs?cn=brd&FlightID=10759689&Page=&PluID=56&Pos=1690781321\" target=\"_blank\"><img src=\"http://bsch.serving-sys.com/BurstingPipe/adServer.bs?cn=bsr&FlightID=10759689&Page=&PluID=56&Pos=1690781321\" border=0 width=960 height=90></a>\n");
+document.write("</noscript>");
+

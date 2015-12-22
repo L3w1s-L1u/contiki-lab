@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<!-- saved from url=(0036)http://www.contiki-os.org/start.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <title>Get Started with Contiki, Instant Contiki and Cooja</title>
+    <meta name="viewport" content="width=device-width,
+      initial-scale=1.0">
+    <meta name="google-site-verification" content="DYQO5mYAME73rno6I5JeLlso_i_0928qs4Mae3cS2K4">
+
+    <link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="http://www.contiki-os.org/contiki-style.css" rel="stylesheet">
+
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://www.contiki-os.org/assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="http://www.contiki-os.org/assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="http://www.contiki-os.org/assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="http://www.contiki-os.org/assets/ico/apple-touch-icon-57-precomposed.png">
+
+    <style type="text/css">
+      @import url("http://www.google.com/uds/solutions/dynamicfeed/gfdynamicfeedcontrol.css");
+    </style>
+
+<script type="text/javascript" async="" src="./Get Started with Contiki, Instant Contiki and Cooja_files/ga.js"></script><script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-12080905-2']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+    <script src="./Get Started with Contiki, Instant Contiki and Cooja_files/jquery.min.js"></script>
+    <script src="./Get Started with Contiki, Instant Contiki and Cooja_files/bootstrap.min.js"></script>
+
+  <style id="style-1-cropbar-clipper">/* Copyright 2014 Evernote Corporation. All rights reserved. */
+.en-markup-crop-options {
+    top: 18px !important;
+    left: 50% !important;
+    margin-left: -100px !important;
+    width: 200px !important;
+    border: 2px rgba(255,255,255,.38) solid !important;
+    border-radius: 4px !important;
+}
+
+.en-markup-crop-options div div:first-of-type {
+    margin-left: 0px !important;
+}
+</style></head>
+
+  <body>
+    <div>
+    <div>
+      <nav class="navbar navbar-default " role="navigation">
+        <div class="container">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+	    <a class="navbar-brand" href="http://www.contiki-os.org/index.html">Contiki</a>
+          </div>
+
+          <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+	      <li class="active"><a href="./Get Started with Contiki, Instant Contiki and Cooja_files/Get Started with Contiki, Instant Contiki and Cooja.htm">Get started</a></li>
+	      <li class=""><a href="http://www.contiki-os.org/hardware.html">Hardware</a></li>
+	      <li class=""><a href="http://www.contiki-os.org/support.html">Support</a></li>
+	      <li class=""><a href="http://www.contiki-os.org/download.html">Download</a></li>
+	      <li class=""><a href="http://www.contiki-os.org/community.html">Community</a></li>
+	      <li class=""><a href="http://www.contiki-os.org/license.html">License</a></li>
+              <li><a target="_blank" href="http://contiki-os.blogspot.com/">Blog</a></li>
+              <li class=""><a href="http://www.contiki-os.org/contact.html">Contact</a></li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </div>
+    </div>
+    <div class="visible-desktop">
+      <a href="https://github.com/contiki-os/contiki" target="_blank"><img style="position: absolute; top: 52px; right:
+                                     0; border: 0; z-index: 1000;" src="./Get Started with Contiki, Instant Contiki and Cooja_files/forkme_right_red_aa0000.png" alt="Fork me on GitHub"></a>
+    </div>
+    <div class="pagecontainer">
+
+<div class="container">
+  <header class="page-header">
+    <h1>Get Started with Contiki</h1>
+    <div class="subnav">
+      <ul class="nav nav-pills">
+        <li><a href="http://www.contiki-os.org/start.html#install-instant-contiki">Step 1: Grab
+	    Instant Contiki</a></li>
+        <li><a href="http://www.contiki-os.org/start.html#start-cooja">Step 2: Start Cooja</a></li>
+        <li><a href="http://www.contiki-os.org/start.html#simulation">Step 3: Run Contiki in
+	    simulation</a></li>
+        <li><a href="http://www.contiki-os.org/start.html#hardware">Step 4: Run Contiki on hardware</a></li>
+        <li><a href="http://www.contiki-os.org/start.html#next">Step 5: Now what?</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <section id="install-instant-contiki">
+    <div class="page-header">
+      <h1>Step 1: Grab Instant Contiki</h1>
+      <p>
+        Contiki is a complex piece of software, but don't despair!
+        Instant Contiki and Cooja makes Contiki easy to install and get
+        started with.
+      </p>
+    </div>
+
+    <div class="row">
+      <div class="col-md-3 columns">
+        <h3>About Instant Contiki</h3>
+        <p>
+	  Instant Contiki is an entire Contiki development environment
+	  in a single download. It is an Ubuntu Linux virtual machine
+	  that runs in VMWare player and has Contiki and all the
+	  development tools, compilers, and simulators used in Contiki
+	  development installed.
+        </p>
+
+        <p>
+	  Instant Contiki is so convenient that even hardcore
+	  Contiki developers use it.
+        </p>
+      </div>
+      <div class="col-md-9 columns">
+        <p>
+	  We begin by downloading Instant Contiki, installing VMWare
+	  Player, and booting up Instant Contiki.
+        </p>
+
+        <h2>Download Instant Contiki</h2>
+        <p>
+	  Download Instant Contiki. Get a coffee: it is a large file,
+	  just over 1&nbsp;gigabyte. When downloaded, unzip the file,
+	  place the unzipped directory on the desktop.
+        </p>
+        <p>
+	  <a href="http://sourceforge.net/projects/contiki/files/Instant%20Contiki/" target="_blank">Download Instant Contiki
+	    »</a>
+        </p>
+        <h2>Install VMWare Player</h2>
+        <p>
+	  Download and install VMWare Player. It is free to download, but
+	  requires a registration. It might require a reboot of your
+	  computer, which is unfortunate but needed to get networking
+	  working.
+        </p>
+        <p>
+	  <a href="http://www.vmware.com/go/downloadplayer/" target="_blank">Download VMWare Player »</a>
+        </p>
+        <h2>Start Instant Contiki</h2>
+        <h3>Boot Ubuntu</h3>
+        <p>
+	  Start Instant Contiki by running
+	  InstantContiki2.6.vmx. Wait for the virtual Ubuntu Linux
+	  boot up.
+        </p>
+        <img src="./Get Started with Contiki, Instant Contiki and Cooja_files/instant-contiki-boot.png" alt="">
+        <h3>Log in</h3>
+        <p>
+	  Log into Instant Contiki. The password
+	  is <span class="label label-info">user</span>.
+        </p>
+        <img src="./Get Started with Contiki, Instant Contiki and Cooja_files/instant-contiki-login.png" alt="">
+        <p>
+	  Congratulations! Now that we have Instant Contiki up and
+	  running, we will start Cooja.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section id="start-cooja">
+    <div class="page-header">
+      <h1>Step 2: Start Cooja</h1>
+    </div>
+
+    <div class="row">
+      <div class="col-md-3 columns">
+        <h3>About Cooja</h3>
+        <p>
+	  Cooja is the Contiki network simulator. Cooja allows large and
+	  small networks of Contiki motes to be simulated. Motes can be
+	  emulated at the hardware level, which is slower but allows
+	  precise inspection of the system behavior, or at a less
+	  detailed level, which is faster and allows simulation of larger
+	  networks.
+        </p>
+      </div>
+      <div class="col-md-9 columns">
+        <p>
+	  We will now compile and start Cooja, the Contiki network
+	  simulator.
+        </p>
+        <h2>Open a terminal window</h2>
+        <p>
+	  To start Cooja, first open a terminal window.
+        </p>
+        <img src="./Get Started with Contiki, Instant Contiki and Cooja_files/1-cooja.png">
+
+        <h2>Start Cooja</h2>
+        <p>
+	  In the terminal window, go to the Cooja directory:
+        </p>
+        <pre>cd contiki/tools/cooja</pre>
+        <p>
+	  Start Cooja with the command:
+        </p>
+        <pre>ant run</pre>
+
+        <h2>Wait for Cooja to start</h2>
+        <p>
+	  When Cooja first starts, it will first compile itself,
+	  which may take some time.
+        </p>
+        <img src="./Get Started with Contiki, Instant Contiki and Cooja_files/2-cooja.png">
+        <p>
+	  When Cooja is compiled, it will start with a blue empty
+	  window.
+        </p>
+        <img src="./Get Started with Contiki, Instant Contiki and Cooja_files/3-cooja.png">
+        <p>
+	  Now that Cooja is up and running, we can try it out with an
+	  example simulation.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section id="simulation">
+    <div class="page-header">
+      <h1>Step 3: Run Contiki in simulation</h1>
+    </div>
+
+    <div class="row">
+      <div class="col-md-3 columns">
+        <h3>About Cooja simulations</h3>
+        <p>
+	  Cooja is a highly useful tool for Contiki development as it
+	  allows developers to test their code and systems long before
+	  running it on the target hardware. Developers regularly set up
+	  new simulations both to debug their software and to verify the
+	  behavior of their systems.
+        </p>
+      </div>
+      <div class="col-md-9 columns">
+
+        <h2>Create a new simulation</h2>
+
+        <h3>Create new simulation</h3>
+        <p>
+	  Click the <span class="label label-default">File</span> menu and click
+	  <span class="label label-default">New simulation...</span>.
+        </p>
+        <img src="./Get Started with Contiki, Instant Contiki and Cooja_files/8-cooja-2.png">
+        <h3>Set simulation options</h3>
+        <p>
+	  Cooja now opens up the <span class="label label-default">Create new
+	    simulation</span> dialog. In this dialog, we may choose
+	  to give our simulation a new name, but for this example,
+	  we'll just stick with My simulation. Click
+	  the <span class="label label-default">Create</span> button.
+        </p>
+        <img src="./Get Started with Contiki, Instant Contiki and Cooja_files/9-cooja.png">
+        <h3>Simulation windows</h3>
+        <p>
+	  Cooja brings up the new
+	  simulation. The <span class="label label-default">Network</span>
+	  window, at the top left of the screen, shows all the
+	  motes in the simulated network - it is empty now, since
+	  we have no motes in our
+	  simulation. The <span class="label label-default">Timeline</span>
+	  window, at the bottom of the screen, shows all
+	  communication events in the simulation over time - very
+	  handy for understanding what goes on in the network. The
+	  <span class="label label-default">Mote output</span> window, on the
+	  right side of the screen, shows all serial port
+	  printouts from all the
+	  motes. The <span class="label label-default">Notes</span> window on
+	  the top right is where we can put notes for our
+	  simulation. And the <span class="label label-default">Simulation
+	    control</span> window is where we start, pause, and
+	  reload our simulation.
+        </p>
+        <img src="./Get Started with Contiki, Instant Contiki and Cooja_files/10-cooja.png">
+
+        <h2>Add motes to the simulation</h2>
+
+        <h3>Add motes</h3>
+        <p>
+	  Before we can simulate our network, we must add one or
+	  more motes. We do this via
+	  the <span class="label label-default">Motes</span> menu, where we
+	  click on <span class="label label-default">Add motes...</span>. Since
+	  this is the first mote we add, we must first create a
+	  mote type to add. Click
+	  <span class="label label-default">Create new mote type...</span> and
+	  select one of the available mote types. For this
+	  example, we click <span class="label label-default">Sky mote...</span>
+	  to create an emulated Tmote Sky mote type.
+        </p>
+        <img src="./Get Started with Contiki, Instant Contiki and Cooja_files/11-cooja.png">
+
+        <h3>Create a new mote type</h3>
+        <p>
+	  Cooja opens the <span class="label label-default">Create Mote
+	    Type</span> dialog, in which we can choose a name for
+	  our mote type as well as the Contiki application that
+	  our mote type will run. For this example, we stick with
+	  the suggested name, and instead click on
+	  the <span class="label label-default">Browse...</span> button on the
+	  right hand side to choose our Contiki application.
+        </p>
+        <img src="./Get Started with Contiki, Instant Contiki and Cooja_files/12-cooja.png">
+        <h3>Find example Contiki application</h3>
+        <p>
+	  We go to the
+	  directory <span class="label label-default">/home/user/contiki/examples/ipv6/simple-udp-rpl</span>. This
+	  directory holds a number of Contiki applications that
+	  provide examples for how to do simple UDP communication
+	  over IPv6.
+        </p>
+        <img src="./Get Started with Contiki, Instant Contiki and Cooja_files/13-cooja.png">
+        <h3>Specify application C source file</h3>
+        <p>
+	  Choose the
+	  file <span class="label label-default">broadcast-example.c</span>. This
+	  file contains a simple Contiki application that randomly
+	  broadcasts a UDP packet to its neighbors. Click the
+	  <span class="label label-default">Open</span> button to choose the
+	  file.
+        </p>
+        <img src="./Get Started with Contiki, Instant Contiki and Cooja_files/14-cooja.png">
+        <h3>Compile Contiki and the application</h3>
+        <p>
+	  Now Cooja will verify that the selected Contiki
+	  application compiles for the platform that we have
+	  selected. Click the <span class="label label-default">Compile</span>
+	  button. This will take some time the first time around,
+	  expect it to take a minute at least. The compilation
+	  output will show up in the white panel at the bottom of
+	  the window.
+        </p>
+        <img src="./Get Started with Contiki, Instant Contiki and Cooja_files/15-cooja.png">
+
+        <h3>Create the mote type</h3>
+        <p>
+	  Click the  <span class="label label-default">Create</span> button to
+	  create the mote type. The window will close.
+        </p>
+        <img src="./Get Started with Contiki, Instant Contiki and Cooja_files/16-cooja.png">
+
+        <h3>Add motes to simulation</h3>
+        <p>
+	  Cooja will now ask us if we want to add motes from the
+	  newly created mote type to the simulation. We change the
+	  number of motes to add in the <span class="label label-default">Number
+	    of motes</span> field to 8.
+        </p>
+        <img src="./Get Started with Contiki, Instant Contiki and Cooja_files/17-cooja.png">
+        <h3>Add the motes</h3>
+        <p>
+	  We click the <span class="label label-default">Add motes</span> button
+	  to add the motes to the simulation.
+        </p>
+        <img src="./Get Started with Contiki, Instant Contiki and Cooja_files/18-cooja.png">
+        <h3>Start the simulation</h3>
+        <p>
+	  We can now see the 8 motes we added to the simulation in
+	  the <span class="label label-default">Network</span> window. Click the
+	  <span class="label label-default">Start</span> button to start the
+	  simulation.
+        </p>
+        <img src="./Get Started with Contiki, Instant Contiki and Cooja_files/19-cooja.png">
+        <h3>Pause the simulation</h3>
+        <p>
+	  We see printouts from the simulated motes appearing in
+	  the <span class="label label-default">Mote output</span> window. The
+	  <span class="label label-default">Network</span> window shows
+	  communication going on in the
+	  network. The <span class="label label-default">Timeline</span> window
+	  shows communication and radio events over time - the
+	  small gray lines are ContikiMAC periodically waking the
+	  radio up. We can click
+	  the <span class="label label-default">Pause</span> button to pause the
+	  simulation.
+        </p>
+        <img src="./Get Started with Contiki, Instant Contiki and Cooja_files/20-cooja.png">
+
+        <h2>Done!</h2>
+
+        <p>
+	  Congratulations! We have now created your first Cooja
+	  simulation with Contiki nodes that send periodic IPv6/UDP
+	  packets with ContikiMAC sleepy router functionaliy.
+        </p>
+
+      </div>
+    </div>
+  </section>
+
+
+
+  <section id="hardware">
+    <div class="page-header">
+      <h1>Step 4: Run Contiki on hardware</h1>
+    </div>
+
+    <div class="row">
+      <div class="col-md-3 columns">
+        <h3>About Contiki on hardware</h3>
+        <p>
+	  Contiki has a build system that is intended to make it easy to
+	  run Contiki directly on hardware. The build system is designed
+	  to be the same across different hardware platforms, so that
+	  the build commands are familiar when switching hardware. The
+	  build system consists of a set of makefiles. The base makefile
+	  is <code>contiki/Makefile.include</code>, platform makefiles in
+	  <code>contiki/platform/*/Makefile.platform</code> and
+	  <code>contiki/cpu/*/Makefile.cpu</code>.
+        </p>
+      </div>
+      <div class="col-md-9 columns">
+        <h2>Connect the hardware</h2>
+        <p>
+	  In this example, we assume you have
+	  a <a href="http://www.contiki-os.org/hardware.html">Zolertia Z1</a> mote connected to a
+	  USB port of your PC. We first need to enable the Z1 in
+	  Instant Contiki, so that Instant Contiki is able to talk to
+	  it. This is done through the <span class="legend">Virtual
+	    Machine</span> menu in VMWare Player, followed by
+	  the <span class="legend">Removable Devices</span> menu item.
+        </p>
+        <h2>Open a terminal, go to the code directory</h2>
+        <p>
+	  The Contiki build system is run in a terminal window. Open a
+	  terminal window and go to the Hello World example directory:
+        </p>
+        <pre>cd contiki/examples/hello-world</pre>
+        
+        <h2>Compile Contiki and the application</h2>
+        <p>
+	  We can now compile the Hello World application for our
+	  hardware platform. This also compiles the entire Contiki
+	  system, so it will take some time the first time around.
+        </p>
+        <pre>make TARGET=z1 hello-world</pre>
+        <p>
+	  If you plan to compile more than once for the chosen platform,
+	  you can ask Contiki to remember your choice of hardware with
+	  the special <code>savetarget</code> maketarget. Do this now:
+        </p>
+        <pre>make TARGET=z1 savetarget</pre>
+        <h2>Upload Contiki to the hardware</h2>
+        <p>
+	  Now we are ready to upload the compiled code to the
+	  hardware. We do this with the special <code>%.upload</code>
+	  maketarget like this:
+        </p>
+        <pre>make hello-world.upload</pre>
+        <p>
+	  <span class="label label-warning">Note:</span> If you see
+	  output along the lines of the following, that means that the
+	  Z1 mote has not been connected to Instant Contiki:
+        </p>
+        <pre>          make z1-reset z1-upload
+          make[1]: Entering directory `/home/user/contiki/examples/hello-world'
+          make -k -j 20 z1-reset-sequence
+          make[2]: Entering directory `/home/user/contiki/examples/hello-world'
+          Done
+          make[2]: Leaving directory `/home/user/contiki/examples/hello-world'
+          make -j 20 z1-upload-sequence
+          make[2]: Entering directory `/home/user/contiki/examples/hello-world'
+          Done
+          make[2]: Leaving directory `/home/user/contiki/examples/hello-world'
+          make[1]: Leaving directory `/home/user/contiki/examples/hello-world'
+          rm hello-world.ihex
+        </pre>
+        <p>
+	  Check the connection to the PC, check the connection in VMWare
+	  Player, and try again.
+        </p>
+        <p>
+	  Note that we could have done the compilation and uploading in
+	  one step: the <code>make hello-world.upload</code> target
+	  automatically compiles the application and Contiki before
+	  uploading it to the hardware.
+        </p>
+        <h2>See the Hello World output</h2>
+        <p>
+	  Now that the code is burned onto the hardware device, we can
+	  check the serial port to see the output of the program. To see
+	  the serial port output of our connected mote, we run the
+	  following command:
+        </p>
+        <pre>make login</pre>
+        <p>
+	  This will not show any output (except potentially a few
+	  garbage characters which sometimes seem to be inserted by
+	  VMWare) because the Hello World program has already
+	  finished. To see the output, press the reset button on the
+	  mote. Something like the following should show up:
+        </p>
+        <pre>          Rime started with address 1.1
+          MAC 01:01:00:00:00:00:00:00 Contiki-2.6 started. Node id is set to 257.
+          CSMA ContikiMAC, channel check rate 8 Hz, radio channel 26
+          Starting 'Hello world process'
+          Hello, world
+        </pre>
+        <h2>Done!</h2>
+        <p>
+	  Congratulations! If you have completed all the steps in this
+	  tutorial, you have successfully been running Contiki both in
+	  simulation and on hardware. If everything worked, you might
+	  try to run the code we ran in simulation on hardware: upload
+	  the <span class="label label-default">broadcast-example</span> program in
+	  the <span class="label label-default">contiki/examples/ipv6/simple-udp-rpl/</span>
+	  directory to two hardware devices and look at them sending
+	  low-power wireless IPv6/UDP messages to each other.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section id="next">
+    <div class="page-header">
+      <h1>Step 5: Now what?</h1>
+    </div>
+    <div class="row">
+      <div class="col-md-2 columns col-md-offset-1">
+        <h2>Hardware</h2>
+        <p>
+	  To see what your hardware options for Contiki are, or get hold
+	  of a hardware platform to run Contiki on, go to the hardware
+	  page:
+        </p>
+        <p>
+	  <a href="http://www.contiki-os.org/hardware.html">Hardware »</a>
+        </p>
+      </div>
+      <div class="col-md-2">
+        <h2>Source code</h2>
+        <p>
+	  To dive into the Contiki source code, you can download the
+	  latest release or grab the current development version with
+	  git:
+        </p>
+        <p>
+	  <a href="http://www.contiki-os.org/download.html">Download »</a>
+        </p>
+      </div>
+      <div class="col-md-2">
+        <h2>Community</h2>
+        <p>
+	  To engage with the Contiki developer community, go to the
+	  Contiki community page:
+        </p>
+        <p>
+	  <a href="http://www.contiki-os.org/community.html">Community »</a>
+        </p>
+      </div>
+      <div class="col-md-2">
+        <h2>License</h2>
+        <p>
+	  To read the legal details of the Contiki open source license,
+	  go to the Contiki license page:
+        </p>
+        <p>
+	  <a href="http://www.contiki-os.org/license.html">Open source »</a>
+        </p>
+      </div>
+      <div class="col-md-2">
+        <h2>Resources</h2>
+        <p>
+	  Read more about further Contiki resources:
+        </p>
+        <p>
+	  <a href="http://www.contiki-os.org/support.html">Resources »</a>
+        </p>
+      </div>
+    </div>
+  </section>
+</div>
+
+</div> <!-- /container -->
+
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 text-center">
+        Hosted by <a href="http://thingsquare.com/" target="_blank">Thingsquare</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script type="text/javascript">
+  $('.carousel').carousel();
+</script>
+
+<script src="./Get Started with Contiki, Instant Contiki and Cooja_files/jsapi" type="text/javascript"></script>
+<script src="./Get Started with Contiki, Instant Contiki and Cooja_files/gfdynamicfeedcontrol.js" type="text/javascript"></script>
+<script type="text/javascript">
+google.load('feeds', '1');
+
+function OnLoad() {
+    var feeds = [
+	{
+	    title: '<a href="http://contiki-os.blogspot.com">Contiki blog</a>',
+	    url: 'http://contiki-os.blogspot.com/feeds/posts/default'
+	}
+    ];
+
+    var options = {
+	linkTarget : google.feeds.LINK_TARGET_BLANK,
+	horizontal : true,
+	numResults : 2,
+	title : "<a href=\"http://contiki-os.blogspot.com\">Contiki blog</a>"
+    };
+    new GFdynamicFeedControl(feeds, 'feed', options);
+}
+
+google.setOnLoadCallback(OnLoad);
+</script><script src="./Get Started with Contiki, Instant Contiki and Cooja_files/saved_resource" type="text/javascript"></script><link href="./Get Started with Contiki, Instant Contiki and Cooja_files/default+zh_CN.css" type="text/css" rel="stylesheet"><script src="./Get Started with Contiki, Instant Contiki and Cooja_files/default+zh_CN.I.js" type="text/javascript"></script>
+
+
+
+
+</body></html>
